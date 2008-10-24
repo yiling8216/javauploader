@@ -1,3 +1,4 @@
 #labels Featured,Phase-Design
-= RoadMap (Updated 25-10-2008) =
-1.0 : 30.11.2008 - finish configuration system, prepare demo pages, prepare documentation.
+*RoadMap (Updated 25-10-2008)*
+
+ * 1.0 : 30.11.2008 - finish configuration system, prepare demo pages, prepare documentation.
