@@ -1,1 +1,2 @@
 #labels screenshots
+http://javauploader.googlecode.com/files/JavaUploaderApplet-ChooseFile.jpg
