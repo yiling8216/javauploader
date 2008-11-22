@@ -7,6 +7,8 @@ http://javauploader.googlecode.com/files/JavaUploaderApplet-ChooseFile.jpg
 
 File list is dynamic grid component, if you resize applet files per row reflects changes.
 
+File chooser component you see on the left is platform special, which means if you are on a unix based computer it show root folder and your home folders as main folders, if you are on windows machine your documents folder, desktop folder and some other special folders listed as main folders.
+
 ----
 
 *Selected file list screenshot*
