@@ -1,2 +1,16 @@
 #labels screenshots
+----
+
+*File choosing screenshot*
+
 http://javauploader.googlecode.com/files/JavaUploaderApplet-ChooseFile.jpg
+
+File list is dynamic grid component, if you resize applet files per row reflects changes.
+
+----
+
+*Selected file list screenshot*
+
+http://javauploader.googlecode.com/files/JavaUploaderApplet-SelectedFileList.jpg
+
+Here you can show all selected files and remove some of them if you want to. This list is very useful when you want to find an image that you do not want to upload.
