@@ -14,4 +14,24 @@ When uploading files applet applies compression on files if image policy is set,
 ----
 *Sample html source for using applet*
 
-'''25-11-2008''' - Sample will be added soon
+Here is sample applet configuration parameters. You must concentrate on selectedFolder, sessionString, uploadHandlerUrl, logStatus, idCount and desc-... parameter map parameters.
+{{{
+  <object type="application/x-java-applet" width= "900" height= "500"  name="JavaUploader" id="jsap">
+  <param name="codebase" value="http://localhost:9000/applet/">
+  <param name="archive" value="SAlbumYapUploaderv3.jar,SCommonsLibs.jar,SDirectoryChooser.jar,plugin.jar">
+  <param name="code" value="com.albumyap.uploader.UploaderApplet">
+  <param name="selectedFolder" value="<%=request.getParameter("klasor_no")%>">
+  <param name="sessionString" value="JSESSIONID=<%=session_id%>">
+  <param name="uploadHandlerUrl" value="http://localhost:9000/pupload?klasor_no=">
+  <param name="logStatus" value="on">
+  <param name="mayscript" value="yes">
+  <param name="scriptable" value="true">
+  <param name="name" value="JavaUploader Upload Applet">
+  <param name="progressbar" value="true">
+  <param name="progresscolor" value="#FF0000">
+  <param name="idCount" value="<%=albumler.Aklasor_no.length%>">
+  <%for(int i=0;i<albumler.Aklasor_no.length;i++) {%>
+    <param name="desc-<%=i%>" value="<%=albumler.Aklasor_no[i]%>:<%=albumler.Aalbum_adi[i]%>">
+  <%}%>
+ </object>
+}}}
