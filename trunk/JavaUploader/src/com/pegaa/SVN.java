@@ -9,12 +9,6 @@ package com.pegaa;
  *
  * @author tayfun
  */
-public class Test {
-
-    public static void main(String args[])
-    {
-        System.out.println("SVN Test");
-        //sssa
-    }
-    
+public class SVN {
+//This is a SVN Test
 }
