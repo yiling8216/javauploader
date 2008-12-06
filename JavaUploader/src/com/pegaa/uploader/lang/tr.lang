@@ -1,0 +1,17 @@
+bottomtoolbar.help=Yard\u0131m
+bottomtoolbar.upload=Y\u00fckle
+bottomtoolbar.choose=--- Hedefi Se\u00e7iniz ---
+
+selectedfilelist.emptymessage=Se\u00e7ili Dosya Yok
+
+fileselection.tab1=Dosya Se\u00e7iniz
+fileselection.tab2=Se\u00e7ti\u011finiz Dosyalar
+fileselection.selectfile=L\u00fctfen Dosya Se\u00e7iniz
+
+fileselector.selectall=Hepsini Se\u00e7
+fileselector.removeselected=Se\u00e7ilileri Kald\u0131r
+
+uploaduiitem.title=Dosya Yolu :
+
+uploaderui.stop=Durdur
+uploaderui.continue=Devam

@@ -1,0 +1,19 @@
+bottomtoolbar.help=Help
+bottomtoolbar.upload=Upload
+bottomtoolbar.choose=--- Select One ---
+
+selectedfilelist.emptymessage=There is no selected item
+
+fileselection.tab1=Choose file
+fileselection.tab2=Selected Files
+fileselection.selectfile=Please select a file
+
+fileselector.selectall=Select All
+fileselector.removeselected=Remove Selected
+
+uploaduiitem.title=File Path :
+
+uploaderui.stop=Stop
+uploaderui.continue=Continue
+
+directorychooser.mycomputer=My Computer
