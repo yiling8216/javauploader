@@ -1,0 +1,77 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.pegaa.uploader.config.policy;
+
+import com.pegaa.uploader.config.ConfigHolder;
+import com.pegaa.uploader.common.CustomFileFilter;
+import com.pegaa.uploader.sender.InputStreamInfo;
+import com.pegaa.uploader.ui.filelist.item.ListItem;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+
+/**
+ *
+ * @author tayfun
+ */
+public class FileUploadPolicy extends UploadPolicy{
+
+    /* FileUpload policy type flag */
+    public static final int POLICY_TYPE_FILE = 2;
+    
+    public FileUploadPolicy(ConfigHolder configHolder)
+    { 
+         super(configHolder);
+    }
+    
+    /**
+     * 
+     * 
+     * @param targetID
+     * @return
+     */
+    @Override
+    public String getPostURL(String targetID) {
+        return null;
+    }
+
+    /**
+     * FileUploadPolicy treats all items as files so we cannot apply 
+     * 
+     * @param item
+     * @return
+     * @throws java.io.FileNotFoundException
+     */
+    @Override
+    public InputStreamInfo getInputStream(ListItem item) throws FileNotFoundException{
+        FileInputStream fis = null;
+        InputStreamInfo info = null;
+        
+        try {
+            fis = new FileInputStream(item.getFile());
+            info = new InputStreamInfo(fis, item.getFile().length());
+            return info;
+        } catch (FileNotFoundException ex) {
+            throw new FileNotFoundException();
+        }
+    }
+
+    @Override
+    public FileFilter getFileFilter() {
+        if(filter != null){
+             return filter;
+        }
+        filter = new CustomFileFilter();
+        return filter;
+    }
+    
+    @Override
+    public int getPolicyType()
+    {
+        return POLICY_TYPE_FILE;
+    } 
+}
