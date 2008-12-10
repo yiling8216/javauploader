@@ -40,7 +40,7 @@ public abstract class UploadPolicy {
      * @param targetID Target folder's ID
      * @return
      */
-    public String getPostURL(String targetID)
+    public String getPostURL(ListItem item, String targetID)
     {
         String uploadHandlerUrl = (String)this.configHolder.getObject("global.uploadHandlerUrl");
         uploadHandlerUrl += targetID;

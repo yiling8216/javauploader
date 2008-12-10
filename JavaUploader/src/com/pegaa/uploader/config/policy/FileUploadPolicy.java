@@ -35,7 +35,7 @@ public class FileUploadPolicy extends UploadPolicy{
      * @return
      */
     @Override
-    public String getPostURL(String targetID) {
+    public String getPostURL(ListItem item, String targetID) {
         return null;
     }
 
