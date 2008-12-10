@@ -161,20 +161,19 @@ public class ImageUploadPolicy extends UploadPolicy{
         return POLICY_TYPE_IMG;
     }   
     
-    /*
+     /**
+     * Returns full target upload URL, this function is called from
+     * Sender.java's run method.
+     * 
+     * @param targetID Target folder's ID
+     * @return
+     */
     @Override
-    public String getPostURL(String targetID)
+    public String getPostURL(ListItem item, String targetID)
     {
-        String targetHandlerUrl = applet.getParameter("targetURL");
-        String targetHandlerName = applet.getParameter("targetName");
-        if(targetID == null || targetID.equals("")){
-            return targetHandlerUrl;
-        }else if(targetHandlerName != null){
-            return targetHandlerUrl + "?" + targetHandlerName + "=" + targetID;
-        }
-        else{
-            return targetHandlerUrl + "?target=" + targetID;
-        }
+        String uploadHandlerUrl = (String)this.configHolder.getObject("global.uploadHandlerUrl");
+        uploadHandlerUrl += targetID;
+        CustomLog.log("UploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
+        return uploadHandlerUrl;
     }
-    */
 }
