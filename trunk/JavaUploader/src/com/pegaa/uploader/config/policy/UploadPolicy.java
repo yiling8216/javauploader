@@ -56,7 +56,6 @@ public abstract class UploadPolicy {
     public String getSessionString()
     {
         String sessionString = (String)this.configHolder.getObject("global.session-string");
-        //String sessionString = "JSESSIONID=9AE00DA975656355B96B6B299DB5CF87";
         return sessionString; 
     }
     
