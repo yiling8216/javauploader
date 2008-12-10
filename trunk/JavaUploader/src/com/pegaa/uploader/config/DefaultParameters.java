@@ -26,4 +26,11 @@ public class DefaultParameters {
     public static int UPLOAD_IMAGE_WIDTH = 1024;
     public static int UPLOAD_IMAGE_HEIGHT = 768;
     
+    
+    /**
+     * Max extension type count, it is defaulted to 20.
+     * 
+     */
+    public static int MAX_EXTENSION_COUNT = 20;
+    
 }

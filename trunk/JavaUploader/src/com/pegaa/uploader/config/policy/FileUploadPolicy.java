@@ -7,6 +7,7 @@ package com.pegaa.uploader.config.policy;
 
 import com.pegaa.uploader.config.ConfigHolder;
 import com.pegaa.uploader.common.CustomFileFilter;
+import com.pegaa.uploader.config.DefaultParameters;
 import com.pegaa.uploader.sender.InputStreamInfo;
 import com.pegaa.uploader.ui.filelist.item.ListItem;
 import java.io.FileFilter;
@@ -66,6 +67,16 @@ public class FileUploadPolicy extends UploadPolicy{
              return filter;
         }
         filter = new CustomFileFilter();
+        String fileExtensions = applet.getParameter("fileExtensions");
+        
+        //if any extension given we use them
+        if(fileExtensions != null){
+            String[] extensions = fileExtensions.split(",");
+            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT; i++){
+                filter.addExtension(extensions[i]);
+            }
+         }
+        
         return filter;
     }
     

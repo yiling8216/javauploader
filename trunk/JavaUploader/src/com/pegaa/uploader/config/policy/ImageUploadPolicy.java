@@ -7,6 +7,7 @@ package com.pegaa.uploader.config.policy;
 
 import com.pegaa.uploader.config.ConfigHolder;
 import com.pegaa.uploader.common.CustomFileFilter;
+import com.pegaa.uploader.config.DefaultParameters;
 import com.pegaa.uploader.sender.InputStreamInfo;
 import com.pegaa.uploader.tools.CustomLog;
 import com.pegaa.uploader.tools.ImageFuncs;
@@ -98,7 +99,7 @@ public class ImageUploadPolicy extends UploadPolicy{
          if(fileExtensions != null){
              
             String[] extensions = fileExtensions.split(",");
-            for(int i=0; i<20; i++){
+            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT; i++){
                 filter.addExtension(extensions[i]);
             }
             
@@ -126,10 +127,11 @@ public class ImageUploadPolicy extends UploadPolicy{
         String maxWidthStr = this.applet.getParameter("maxWidth");
         String maxHeightStr = this.applet.getParameter("maxHeight");
         
+        /* DEBUG */
         CustomLog.log("ImageUploadPolicy.getScaledImageAndRotated maxWidthStr = " + maxWidthStr);
         CustomLog.log("ImageUploadPolicy.getScaledImageAndRotated maxHeightStr = " + maxHeightStr);
         CustomLog.log("ImageUploadPolicy.getScaledImageAndRotated rotation = " + rotation);
-        
+        /* DEBUG */
         
         if(maxWidthStr != null){
             try{
