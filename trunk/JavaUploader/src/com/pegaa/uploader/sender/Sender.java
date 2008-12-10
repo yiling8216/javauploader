@@ -115,7 +115,7 @@ public class Sender extends Thread{
     @Override
     public void run()
     {       
-        String fullPostURL = policy.getPostURL(this.targetID);  
+        String fullPostURL = policy.getPostURL(item, this.targetID);  
         
         CustomLog.log("Sender.run fullPostURL=" + fullPostURL);
         
