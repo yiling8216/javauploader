@@ -24,7 +24,10 @@ import java.io.File;
  */
 public class ImageUploadWihExifDataPolicy extends ImageUploadPolicy {
 
-    /* ImageUpload  policy type flag */
+    /**
+     * ImageUploadWihExifDataPolicy  policy type flag is same type as image
+     * upload policy
+     */
     public static final int POLICY_TYPE_IMG_WITH_EXIF = 1;
     private static String splitChar = "::";
     
