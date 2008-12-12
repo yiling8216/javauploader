@@ -10,6 +10,7 @@ import com.pegaa.uploader.config.ConfigHolder;
 import com.pegaa.uploader.tools.CustomLog;
 import com.pegaa.uploader.tools.JpegExif;
 import com.pegaa.uploader.ui.filelist.item.ListItem;
+import java.io.File;
 
 /**
  * This class is intended to be used for exif data passing. If your application
@@ -24,7 +25,7 @@ import com.pegaa.uploader.ui.filelist.item.ListItem;
 public class ImageUploadWihExifDataPolicy extends ImageUploadPolicy {
 
     /* ImageUpload  policy type flag */
-    public static final int POLICY_TYPE_IMG_WITH_EXIF = 3;
+    public static final int POLICY_TYPE_IMG_WITH_EXIF = 1;
     private static String splitChar = "::";
     
     
@@ -50,19 +51,34 @@ public class ImageUploadWihExifDataPolicy extends ImageUploadPolicy {
     public String getPostURL(ListItem item, String targetID)
     {
         String uploadHandlerUrl = (String)this.configHolder.getObject("global.uploadHandlerUrl");
+        
+        if(uploadHandlerUrl == null){
+            uploadHandlerUrl = "";
+        }
+        
         uploadHandlerUrl += targetID;
-        CustomLog.log("UploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
+        uploadHandlerUrl += getUploadURLwithExif(getExif(item));
+        
+        CustomLog.log("ImageUploadWihExifDataPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
         return uploadHandlerUrl;
     }
     
-    public static String getUploadURLwithExif(String uploadHandlerUrl, 
-                                              String klasor_no, 
-                                              JpegExif exif, 
-                                              ListItem item)
+    
+    private JpegExif getExif(ListItem item)
+    {
+        JpegExif exif = new JpegExif();
+        File file = item.getFile();
+        try{
+            exif.readJPEGMeta(file.getAbsolutePath());
+	}catch(Exception e){   
+			 e.printStackTrace();
+        }
+        return exif;
+    }
+    
+    private static String getUploadURLwithExif(JpegExif exif)
     {
         StringBuffer buf = new StringBuffer();
-        buf.append(uploadHandlerUrl);
-        buf.append(klasor_no);
         buf.append("&exif=");
                         
         StringBuffer exifBuf = new StringBuffer();
