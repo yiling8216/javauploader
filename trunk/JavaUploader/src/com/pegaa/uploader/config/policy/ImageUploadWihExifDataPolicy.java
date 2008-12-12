@@ -29,6 +29,10 @@ public class ImageUploadWihExifDataPolicy extends ImageUploadPolicy {
      * upload policy
      */
     public static final int POLICY_TYPE_IMG_WITH_EXIF = 1;
+    /**
+     * exif datum will be send joined with splitChar so server side codes will
+     * split datum with splitChar then iterate all values in order.
+     */
     private static String splitChar = "::";
     
     
