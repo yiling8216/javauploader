@@ -8,6 +8,7 @@ package com.pegaa.uploader.config;
 import com.pegaa.uploader.common.TargetFolderData;
 import com.pegaa.uploader.config.policy.FileUploadPolicy;
 import com.pegaa.uploader.config.policy.ImageUploadPolicy;
+import com.pegaa.uploader.config.policy.ImageUploadWihExifDataPolicy;
 import com.pegaa.uploader.lang.Lang;
 import com.pegaa.uploader.tools.CustomLog;
 import java.util.ArrayList;
@@ -122,15 +123,20 @@ public class DefaultConfigHolder extends ConfigHolder {
     public void initUploadPolicy(JApplet applet)
     {
             String policy = applet.getParameter("UploadPolicy");     
-           
-            if(policy != null && policy.equals("file")){
-                    FileUploadPolicy fup = new FileUploadPolicy(this);
-                    this.map.put("global.policy", fup);
-            }
-            else
+            
+            if(policy != null && policy.equals("file"))
             {
-                    ImageUploadPolicy iup = new ImageUploadPolicy(this);
-                    this.map.put("global.policy", iup);
+                FileUploadPolicy fup = new FileUploadPolicy(this);
+                this.map.put("global.policy", fup);
+            }else if(policy != null && policy.equals("image-with-exif"))
+            {
+                ImageUploadWihExifDataPolicy iedp = new ImageUploadWihExifDataPolicy(this);
+                 this.map.put("global.policy", iedp);
+            }
+            else /* in all other cases we will user image upload policy */
+            {
+                ImageUploadPolicy iup = new ImageUploadPolicy(this);
+                this.map.put("global.policy", iup);
             }
     }
     
@@ -143,6 +149,7 @@ public class DefaultConfigHolder extends ConfigHolder {
     public void initLog(JApplet applet)
     {
             String logMode = applet.getParameter("logStatus");
+            
             if(logMode != null){
                if(logMode.equals("on")){
                    CustomLog.setMode(1);
