@@ -21,7 +21,7 @@ for simplicity's sake you can use same password for store and key. Above command
 
  * After creating keystore file you can sign your jars.
 
-jarsigner -keystore _keystorefilename_ -storepass up123up -keypass _passofkey_ -signedjar _signedAppletName.jar_ _jarToBeSigned.jar_ signFiles
+jarsigner -keystore _keystorefilename_ -storepass _passofstore_ -keypass _passofkey_ -signedjar _signedAppletName.jar_ _jarToBeSigned.jar_ signFiles
 
 You can give any name to signed jar except same name of jar to be signed :). After signing applet you do not have to do anything to break sandbox, your applet user's will do. When applet is started java security system asks if they want to run applet in a untrusted way and then if they choose "Run" your applet will run, if they choose cancel your applet will not run, so you must warn your users to choose "Run" if they want to use applet.
 
