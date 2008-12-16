@@ -65,6 +65,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
         Lang lang = (Lang)this.configHolder.getObject("global.lang");
         this.buttonStop.setText((String)lang.get("uploaderui.stop"));
         this.buttonContinue.setText((String)lang.get("uploaderui.continue"));
+        this.buttonUploadAgain.setText("uploaderui.uploadagain");
     }
     
     /**
@@ -152,6 +153,16 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
         }      
     }
     
+    private void uploadAgain()
+    {
+        JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
+        try{
+            jso.call("relocate", new String[]{"again", targetID});
+        }catch(Exception e){
+            e.printStackTrace(); 
+        }  
+    }
+    
     public void uploadStarted(long fileSize) {
         
     }
@@ -178,6 +189,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
 
         jPanel1 = new javax.swing.JPanel();
         buttonStop = new javax.swing.JButton();
+        buttonUploadAgain = new javax.swing.JButton();
         buttonContinue = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
@@ -193,6 +205,13 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
             }
         });
         jPanel1.add(buttonStop);
+
+        buttonUploadAgain.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonUploadAgainMouseClicked(evt);
+            }
+        });
+        jPanel1.add(buttonUploadAgain);
 
         buttonContinue.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -219,11 +238,16 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
     private void buttonContinueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonContinueMouseClicked
         doAfterUploadProcess();
     }//GEN-LAST:event_buttonContinueMouseClicked
+
+    private void buttonUploadAgainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUploadAgainMouseClicked
+       uploadAgain();
+    }//GEN-LAST:event_buttonUploadAgainMouseClicked
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonContinue;
     private javax.swing.JButton buttonStop;
+    private javax.swing.JButton buttonUploadAgain;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

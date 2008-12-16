@@ -36,6 +36,11 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonStopMouseClicked"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="buttonUploadAgain">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonUploadAgainMouseClicked"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="buttonContinue">
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="buttonContinueMouseClicked"/>
