@@ -110,6 +110,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
     public void startUpload()
     {
         this.buttonContinue.setEnabled(false);
+        this.buttonUploadAgain.setEnabled(false);
         curIndex = 0;
         this.runNext();
     }
@@ -133,6 +134,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
             if(curIndex == this.uploadItemUIs.size()){
                 this.buttonStop.setEnabled(false);
                 this.buttonContinue.setEnabled(true);
+                this.buttonUploadAgain.setEnabled(true);
             }
         }
     }
