@@ -15,3 +15,6 @@ uploaduiitem.title=Dosya Yolu :
 
 uploaderui.stop=Durdur
 uploaderui.continue=Devam
+uploaderui.uploadagain=Tekrar Y\u00fckle
+
+directorychooser.mycomputer=Bilgisayar\u0131m

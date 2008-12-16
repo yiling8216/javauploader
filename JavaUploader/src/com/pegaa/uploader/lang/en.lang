@@ -15,5 +15,6 @@ uploaduiitem.title=File Path :
 
 uploaderui.stop=Stop
 uploaderui.continue=Continue
+uploaderui.uploadagain=Upload Again
 
 directorychooser.mycomputer=My Computer
