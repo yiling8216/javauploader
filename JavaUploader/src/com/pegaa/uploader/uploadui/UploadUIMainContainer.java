@@ -65,7 +65,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
         Lang lang = (Lang)this.configHolder.getObject("global.lang");
         this.buttonStop.setText((String)lang.get("uploaderui.stop"));
         this.buttonContinue.setText((String)lang.get("uploaderui.continue"));
-        this.buttonUploadAgain.setText("uploaderui.uploadagain");
+        this.buttonUploadAgain.setText((String)lang.get("uploaderui.uploadagain"));
     }
     
     /**
