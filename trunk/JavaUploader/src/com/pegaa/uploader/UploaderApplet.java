@@ -23,7 +23,7 @@ public class UploaderApplet extends JApplet {
         initApplet();
     }
 
-
+    
     public void initApplet()
     {
         if(configHolder == null){
