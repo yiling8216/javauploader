@@ -10,7 +10,6 @@
 package com.pegaa.uploader.sender;
 
 import com.pegaa.uploader.event.FileUploadListener;
-import com.pegaa.uploader.tools.CustomLog;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -40,9 +39,7 @@ public class MonitoredInputStream extends InputStream{
      * @param readed
      */
     private void notifyListeners(int readed)
-    {
-        //CustomLog.log("MonitoredInputStream.notifyListeners readed = " + readed);
-        
+    {     
         for(int i=0; i<this.listenerSize; i++)
         {
             this.fileUploadListener.get(i).fileReaded(readed);
