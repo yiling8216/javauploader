@@ -99,7 +99,7 @@ public class ImageUploadPolicy extends UploadPolicy{
          if(fileExtensions != null){
              
             String[] extensions = fileExtensions.split(",");
-            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT; i++){
+            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT || i<extensions.length; i++){
                 filter.addExtension(extensions[i]);
             }
             
