@@ -8,7 +8,9 @@ package com.pegaa.uploader.sender;
 import java.io.InputStream;
 
 /**
- *
+ *  This class holds reference to input stream of related file and length of
+ * related file.
+ * 
  * @author tayfun
  */
 public class InputStreamInfo {

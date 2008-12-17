@@ -33,6 +33,7 @@ public class Sender extends Thread{
     private PostMethod activeMethod = null;
     private UploadPolicy policy = null;
     private String targetID = null;
+    private MemoryFilePartSource mfps = null;
     
     public Sender(ConfigHolder configHolder, String targetID, ListItem item)
     {
@@ -85,7 +86,7 @@ public class Sender extends Thread{
      */
     private PartSource getFilePartSource()
     {
-        MemoryFilePartSource mfps = new MemoryFilePartSource(this.configHolder, this.item);
+        mfps = new MemoryFilePartSource(this.configHolder, this.item);
         this.initFileUploadListeners(mfps);
         mfps.init();
         return (PartSource)mfps;
