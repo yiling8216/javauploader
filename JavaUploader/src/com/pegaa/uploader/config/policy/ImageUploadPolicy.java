@@ -94,7 +94,7 @@ public class ImageUploadPolicy extends UploadPolicy{
          }
          
          filter = new CustomFileFilter();
-         String fileExtensions = applet.getParameter("fileExtensions");
+         String fileExtensions = (String)this.configHolder.getObject("filefilter.extensions");
          
          if(fileExtensions != null){
              
@@ -124,14 +124,8 @@ public class ImageUploadPolicy extends UploadPolicy{
         int maxWidth = orgImage.getWidth();
         int maxHeight = orgImage.getHeight();
         
-        String maxWidthStr = this.applet.getParameter("maxWidth");
-        String maxHeightStr = this.applet.getParameter("maxHeight");
-        
-        /* DEBUG */
-        CustomLog.log("ImageUploadPolicy.getScaledImageAndRotated maxWidthStr = " + maxWidthStr);
-        CustomLog.log("ImageUploadPolicy.getScaledImageAndRotated maxHeightStr = " + maxHeightStr);
-        CustomLog.log("ImageUploadPolicy.getScaledImageAndRotated rotation = " + rotation);
-        /* DEBUG */
+        String maxWidthStr = (String)this.configHolder.getObject("image.maxwidth");
+        String maxHeightStr = (String)this.configHolder.getObject("image.maxheight");
         
         if(maxWidthStr != null){
             try{
@@ -157,6 +151,10 @@ public class ImageUploadPolicy extends UploadPolicy{
         return ImageFuncs.getScaledAndRotatedImage(orgImage, maxWidth, maxHeight, rotation, false);
     }
     
+    /**
+     * 
+     * @return
+     */
     @Override
     public int getPolicyType()
     {
