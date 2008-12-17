@@ -67,7 +67,7 @@ public class FileUploadPolicy extends UploadPolicy{
              return filter;
         }
         filter = new CustomFileFilter();
-        String fileExtensions = applet.getParameter("fileExtensions");
+        String fileExtensions = (String)this.configHolder.getObject("filefilter.extensions");
         
         //if any extension given we use them
         if(fileExtensions != null){

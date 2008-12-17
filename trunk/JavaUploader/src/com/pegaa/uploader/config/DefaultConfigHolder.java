@@ -40,7 +40,8 @@ public class DefaultConfigHolder extends ConfigHolder {
             this.initUploadHandlerUrl(applet);
             this.initUploadPolicy(applet);
             this.initLang(applet);
-            this.initSessionVariables(applet);   
+            this.initSessionVariables(applet);
+            this.initFileFilterVariables(applet);
     }
     
     /*
@@ -131,13 +132,35 @@ public class DefaultConfigHolder extends ConfigHolder {
             }else if(policy != null && policy.equals("image-with-exif"))
             {
                 ImageUploadWihExifDataPolicy iedp = new ImageUploadWihExifDataPolicy(this);
-                 this.map.put("global.policy", iedp);
+                this.map.put("global.policy", iedp);
+                putImageBoundsToConfig(applet);
             }
             else /* in all other cases we will user image upload policy */
             {
                 ImageUploadPolicy iup = new ImageUploadPolicy(this);
                 this.map.put("global.policy", iup);
+                putImageBoundsToConfig(applet);
             }
+    }
+
+    /**
+     * Parameters to be used by file filter classes are being put to map
+     * 
+     * @param applet
+     */
+    public void initFileFilterVariables(JApplet applet) 
+    {
+            this.map.put("filefilter.extensions", applet.getParameter("fileExtensions"));
+    }
+    
+    /**
+     * If we will use one of image uplaod policies we must set max width and
+     * max height to config holder.
+     */
+    private void putImageBoundsToConfig(JApplet applet)
+    {
+            this.map.put("image.maxwidth", applet.getParameter("maxWidth"));
+            this.map.put("image.maxheight", applet.getParameter("maxHeight"));
     }
     
     public void initLang(JApplet applet)
