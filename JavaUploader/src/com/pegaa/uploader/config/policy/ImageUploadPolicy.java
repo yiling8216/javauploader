@@ -95,11 +95,11 @@ public class ImageUploadPolicy extends UploadPolicy{
          
          filter = new CustomFileFilter();
          String fileExtensions = (String)this.configHolder.getObject("filefilter.extensions");
-         
+                  
          if(fileExtensions != null){
              
             String[] extensions = fileExtensions.split(",");
-            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT || i<extensions.length; i++){
+            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT && i<extensions.length; i++){
                 filter.addExtension(extensions[i]);
             }
             
