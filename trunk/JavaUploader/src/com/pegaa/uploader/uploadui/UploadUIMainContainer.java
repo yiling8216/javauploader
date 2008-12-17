@@ -13,7 +13,6 @@ import com.pegaa.uploader.lang.Lang;
 import com.pegaa.uploader.tools.CustomLog;
 import com.pegaa.uploader.ui.selectedfilelist.SelectedFileListModel;
 import java.util.ArrayList;
-import javax.swing.JApplet;
 import netscape.javascript.JSObject;
 
 /**
@@ -131,7 +130,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
             item.startUpload();
             curIndex++;
         }else{
-            if(curIndex == this.uploadItemUIs.size()){
+            if(curIndex == this.uploadItemUIs.size() || cancelUpload == true){
                 this.buttonStop.setEnabled(false);
                 this.buttonContinue.setEnabled(true);
                 this.buttonUploadAgain.setEnabled(true);
