@@ -132,6 +132,7 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
     {
          
          File files[] = dir.listFiles(fileFilter);
+         if(files == null)return;
          int len = files.length;
          for(int i=0; i<len; i++)
          {
