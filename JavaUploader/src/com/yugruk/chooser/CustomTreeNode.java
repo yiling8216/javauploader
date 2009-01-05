@@ -150,7 +150,8 @@ public class CustomTreeNode extends DefaultMutableTreeNode{
    
   public int compareTo(CustomTreeNode toCompare)
   { 
-      return  m_file.getName().compareToIgnoreCase(toCompare.m_file.getName()); 
+      //return  m_file.getName().compareToIgnoreCase(toCompare.m_file.getName()); 
+      return  m_file.getName().compareTo(toCompare.m_file.getName());
   }
 
   protected File[] listFiles()
