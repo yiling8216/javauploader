@@ -219,21 +219,20 @@ public class DirectoryTree extends JTree{
              */
             if((mode == UNIX_MODE)){
             	if(curNode.isRoot()){
-                   System.out.println("root node");
                    return;
             	}
             }else{
             	if(curNode.isRoot()){
-                    System.out.println("root node");
                     return;
             	}
             }
             
             Thread runner = new Thread() 
             {
+              @Override
               public void run() 
               {
-                //node expand ediliyor.
+                 //expanding selected node
                  if (curNode != null && curNode.expand(curNode)) 
                  {
                      Runnable runnable = new Runnable(){
@@ -242,9 +241,10 @@ public class DirectoryTree extends JTree{
                        }
                      };
                      try {
-			 javax.swing.SwingUtilities.invokeAndWait(runnable);
+			 //javax.swing.SwingUtilities.invokeAndWait(runnable);
+                         javax.swing.SwingUtilities.invokeLater(runnable);
 	             } catch (Exception ex) {
-				ex.printStackTrace();
+			 ex.printStackTrace();
 		     }
                  }
               }

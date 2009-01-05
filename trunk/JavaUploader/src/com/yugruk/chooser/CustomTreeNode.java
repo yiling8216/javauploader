@@ -61,13 +61,13 @@ public class CustomTreeNode extends DefaultMutableTreeNode{
          return false;      // Already expanded
       }
       parent.removeAllChildren();  // Remove Flag
-
+      
       File[] files = listFiles();
       if (files == null){
           return true;
       }
       
-      Vector<CustomTreeNode> v = new Vector<CustomTreeNode>(); 
+      Vector<CustomTreeNode> cTreeNodes = new Vector<CustomTreeNode>(); 
       
       for (int k=0; k<files.length; k++)
       {   	 
@@ -90,39 +90,45 @@ public class CustomTreeNode extends DefaultMutableTreeNode{
          CustomTreeNode newNode = new CustomTreeNode(f, getFileSystemView().getSystemDisplayName(f));
        
          boolean isAdded = false;
-         for (int i=0; i<v.size(); i++)
+         int nodeSize = cTreeNodes.size();
+         for (int i=0; i<nodeSize; i++)
          {
-            CustomTreeNode nd = (CustomTreeNode)v.elementAt(i);
+            CustomTreeNode nd = (CustomTreeNode)cTreeNodes.elementAt(i);
             if (newNode.compareTo(nd) < 0)
             {
-               v.insertElementAt(newNode, i);
+               cTreeNodes.insertElementAt(newNode, i);
                isAdded = true;
                break;
             }
         }
         
         if (!isAdded){
-            v.addElement(newNode);
+            cTreeNodes.addElement(newNode);
         }
      }
       
-     for (int i=0; i<v.size(); i++)
+     int nodeSize = cTreeNodes.size();
+     for (int i=0; i<nodeSize; i++)
      {
-         CustomTreeNode nd = (CustomTreeNode)v.elementAt(i);
+         CustomTreeNode nd = (CustomTreeNode)cTreeNodes.elementAt(i);
          parent.add(nd);
          //cocuk alt klasorlere sahip ise expanded flagini tasiyan
          //nesneyi cocuga ekleriz boylece, tree de expand butonuna sahip
          //halde goruntulenir aksi halde buton gorunmez ve expand edemeyiz
-         //  
+         // 
+         CustomTreeNode node0 = new CustomTreeNode();
+         nd.add(node0);   
+         /*
          if(getMode() == DirectoryTree.WINDOWS_MODE){
             CustomTreeNode node0 = new CustomTreeNode();
             nd.add(node0);    
          }else{
-            if(nd.hasSubDirs()){
-              CustomTreeNode node0 = new CustomTreeNode();
-              nd.add(node0);                 
-            }
+            //if(nd.hasSubDirs()){
+            CustomTreeNode node0 = new CustomTreeNode();
+            nd.add(node0);                 
+            //}
          }
+          * */
      }
      return true;
   }
