@@ -9,6 +9,7 @@ package com.pegaa.uploader.ui.filelist.item;
 import com.pegaa.uploader.config.ConfigHolder;
 import com.pegaa.uploader.event.ItemSelectionListener;
 import com.pegaa.uploader.event.ListItemListener;
+import com.pegaa.uploader.lang.Lang;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -58,14 +59,16 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
         this.item = item;
         this.item.addListItemListener(this);
         if(isImageMode){
+            this.labelFileName.setText(((Lang)this.configHolder.getObject("global.lang")).get("listitemui.loading"));
             this.showItemImage();
         }else{
+            this.labelFileName.setText(getShortFileName(item.getFile()));
             this.panelButtonHolder.setVisible(false);
             this.showFileIcon();
         }
         this.setToolTipText(item.getPath());
         this.fileNamePanel.setToolTipText(item.getPath());
-        this.labelFileName.setText(getShortFileName(item.getFile()));
+        //this.labelFileName.setText(getShortFileName(item.getFile()));
     }
     
     /**
@@ -134,6 +137,7 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
      */
     private void showItemImage()
     {
+        this.labelFileName.setText(getShortFileName(item.getFile()));
         this.image = this.item.getThumbImage();
         if(this.image != null){
             this.imagePanel1.setImage(image);

@@ -18,3 +18,5 @@ uploaderui.continue=Continue
 uploaderui.uploadagain=Upload Again
 
 directorychooser.mycomputer=My Computer
+
+listitemui.loading=Loading...
