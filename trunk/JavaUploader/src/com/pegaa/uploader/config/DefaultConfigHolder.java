@@ -49,6 +49,9 @@ public class DefaultConfigHolder extends ConfigHolder {
      * POST requests.
      * For example in Image Upload case we use these variables as album_ids.
      * 
+     * Description of album should block " chars in name becasue it will cause
+     * parsing errors while using it as parameter in html page. 
+     * 
      */
     public void initTargetIdVariables(JApplet applet)
     {
