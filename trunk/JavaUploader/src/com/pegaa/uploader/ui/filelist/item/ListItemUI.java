@@ -136,10 +136,10 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
      * in image mode loads the image and shows it
      */
     private void showItemImage()
-    {
-        this.labelFileName.setText(getShortFileName(item.getFile()));
+    { 
         this.image = this.item.getThumbImage();
         if(this.image != null){
+            this.labelFileName.setText(getShortFileName(item.getFile()));
             this.imagePanel1.setImage(image);
             this.repaint();
         }
