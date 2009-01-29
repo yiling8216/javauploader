@@ -1,17 +1,17 @@
 #labels Featured
 *Applet's configuration variables*
- * selectedFolder -> if you user wants to upload files to a selected folder (user clicks uplaod to this folder button then comes to upload applet), when user clicks upload all files (images) will be uploaded to given receiver id (actually folder id)
+ * *selectedFolder* -> if you user wants to upload files to a selected folder (user clicks uplaod to this folder button then comes to upload applet), when user clicks upload all files (images) will be uploaded to given receiver id (actually folder id)
 
- * idCount -> the list of available folders to user. (if selectedFolder is set it is selected default)
+ * *idCount* -> the list of available folders to user. (if selectedFolder is set it is selected default)
 
- * sessionString -> session identifier, if you are using PHP this is PHPSESSIONID=_session_id_of_user_
+ * *sessionString* -> session identifier, if you are using PHP this is PHPSESSIONID=_session_id_of_user_
 
- * UploadPolicy -> there is two policies "File" or "Image" default is image policy. Policy helps when listing files of selected directory, if image policy is set image's thumbnail is shown as file, if file policy is set applet tries to find related icon by the help of file's extension and shows icon.
+ * *UploadPolicy* -> there is two policies "File" or "Image" default is image policy. Policy helps when listing files of selected directory, if image policy is set image's thumbnail is shown as file, if file policy is set applet tries to find related icon by the help of file's extension and shows icon.
 When uploading files applet applies compression on files if image policy is set, for now (25-11-2008) defaults are applied to images, but i am trying to make them easily configurable.
 
- * logStatus -> this is for logging purposes, if you want to see debug messages on java console set this to "on".
+ * *logStatus* -> this is for logging purposes, if you want to see debug messages on java console set this to "on".
 
- * uploadHandlerUrl -> this is the url which will accept upload requests it must have a parameter name at the end like "http://localhost:9000/pupload?album_id=", because uploading codes will add selectedfolder id to *uploadHandlerUrl* so your handler script will know which folder to work on.
+ * *uploadHandlerUrl* -> this is the url which will accept upload requests it must have a parameter name at the end like "http://localhost:9000/pupload?album_id=", because uploading codes will add selectedfolder id to *uploadHandlerUrl* so your handler script will know which folder to work on.
 ----
 *Sample html source for using applet*
 
