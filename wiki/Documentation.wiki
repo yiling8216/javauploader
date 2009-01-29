@@ -31,7 +31,7 @@ Here is sample applet configuration parameters. You must concentrate on selected
   <param name="progresscolor" value="#FF0000">
   <param name="idCount" value="<%=albumler.Aklasor_no.length%>">
   <%for(int i=0;i<albumler.Aklasor_no.length;i++) {%>
-    <param name="desc-<%=i%>" value="<%=albumler.Aklasor_no[i]%>:<%=albumler.Aalbum_adi[i]%>">
+    <param name="desc-<%=i%>" value="<%=albums.Afolder_id[i]%>:<%=albums.Afolder_name[i]%>">
   <%}%>
  </object>
 }}}
