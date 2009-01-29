@@ -11,6 +11,7 @@ When uploading files applet applies compression on files if image policy is set,
 
  * logStatus -> this is for logging purposes, if you want to see debug messages on java console set this to "on".
 
+ * uploadHandlerUrl -> this is the url which will accept upload requests it must have a parameter name at the end like "http://localhost:9000/pupload?album_id=", because uploading codes will add selectedfolder id to *uploadHandlerUrl* so your handler script will know which folder to work on.
 ----
 *Sample html source for using applet*
 
@@ -22,7 +23,7 @@ Here is sample applet configuration parameters. You must concentrate on selected
   <param name="code" value="com.albumyap.uploader.UploaderApplet">
   <param name="selectedFolder" value="<%=request.getParameter("klasor_no")%>">
   <param name="sessionString" value="JSESSIONID=<%=session_id%>">
-  <param name="uploadHandlerUrl" value="http://localhost:9000/pupload?klasor_no=">
+  <param name="uploadHandlerUrl" value="http://localhost:9000/pupload?album_id=">
   <param name="logStatus" value="on">
   <param name="mayscript" value="yes">
   <param name="scriptable" value="true">
