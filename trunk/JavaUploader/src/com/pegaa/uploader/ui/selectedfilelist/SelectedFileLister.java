@@ -62,6 +62,7 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
     public void fileAdded(ListItem f) {
         UploadPolicy policy = (UploadPolicy)this.configHolder.getObject("global.policy");
         ListItemUI itemUI = new ListItemUI();
+        itemUI.setConfigHolder(this.configHolder);
         itemUI.setItem(f, policy.getPolicyType() == ImageUploadPolicy.POLICY_TYPE_IMG ? true : false);
         itemUI.setSelected(true);
         itemUI.addItemSelectionListener(this);
