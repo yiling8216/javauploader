@@ -20,7 +20,7 @@ Here is sample applet configuration parameters. You must concentrate on selected
   <param name="codebase" value="http://localhost:9000/applet/">
   <param name="archive" value="SAlbumYapUploaderv3.jar,SCommonsLibs.jar,SDirectoryChooser.jar,plugin.jar">
   <param name="code" value="com.albumyap.uploader.UploaderApplet">
-  <param name="selectedFolder" value="<%=request.getParameter("klasor_no")%>">
+  <param name="selectedFolder" value="<%=request.getParameter("album_id")%>">
   <param name="sessionString" value="JSESSIONID=<%=session_id%>">
   <param name="uploadHandlerUrl" value="http://localhost:9000/pupload?album_id=">
   <param name="logStatus" value="on">
@@ -29,8 +29,8 @@ Here is sample applet configuration parameters. You must concentrate on selected
   <param name="name" value="JavaUploader Upload Applet">
   <param name="progressbar" value="true">
   <param name="progresscolor" value="#FF0000">
-  <param name="idCount" value="<%=albumler.Aklasor_no.length%>">
-  <%for(int i=0;i<albumler.Aklasor_no.length;i++) {%>
+  <param name="idCount" value="<%=albums.Aalbum_id.length%>">
+  <%for(int i=0;i<albums.Aalbum_id.length;i++) {%>
     <param name="desc-<%=i%>" value="<%=albums.Afolder_id[i]%>:<%=albums.Afolder_name[i]%>">
   <%}%>
  </object>
