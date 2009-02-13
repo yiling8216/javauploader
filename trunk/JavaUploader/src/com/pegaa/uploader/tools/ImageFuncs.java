@@ -79,7 +79,7 @@ public class ImageFuncs {
         }
 		
         BufferedImage thumbImage = null;
-        thumbImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        thumbImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
 	
 	Graphics2D graphics2D = thumbImage.createGraphics();
 	if(!thumb){
