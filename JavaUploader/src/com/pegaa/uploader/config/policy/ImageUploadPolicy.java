@@ -124,9 +124,6 @@ public class ImageUploadPolicy extends UploadPolicy{
          }else{
             filter.addExtension("jpg");
             filter.addExtension("jpeg");
-            //
-            filter.addExtension("gif");
-            filter.addExtension("png");
          }
          
          return filter;
