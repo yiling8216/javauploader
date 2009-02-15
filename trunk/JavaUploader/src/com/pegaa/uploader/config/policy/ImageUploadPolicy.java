@@ -68,10 +68,11 @@ public class ImageUploadPolicy extends UploadPolicy{
             String rfilename = rtmpf.getName();
             String rext = rfilename.substring(rfilename.lastIndexOf('.')+1, rfilename.length());
 
+            /*
             System.out.println("getInputStream method called. Filename is");
             System.out.println(rfilename);
             System.out.println(rext);
-
+            */
 
             image = getScaledImageAndRotated(image, imgItem.getRotationStatus(),rext);           
 
