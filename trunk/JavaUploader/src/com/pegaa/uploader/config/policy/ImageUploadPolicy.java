@@ -16,6 +16,7 @@ import com.pegaa.uploader.ui.filelist.item.ListItem;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -59,8 +60,25 @@ public class ImageUploadPolicy extends UploadPolicy{
         
         try {
             image = javax.imageio.ImageIO.read(item.getFile());
-            image = getScaledImageAndRotated(image, imgItem.getRotationStatus());
-            baos = ImageFuncs.createImageOutputStream(image);
+
+            //Raz - modify this to send out the filename in an overloaded 
+            //function of getScaledImageAndRotated 
+            //in com.pegaa.uploader.tools.ImageFuncs
+            File rtmpf = item.getFile();
+            String rfilename = rtmpf.getName();
+            String rext = rfilename.substring(rfilename.lastIndexOf('.')+1, rfilename.length());
+
+            System.out.println("getInputStream method called. Filename is");
+            System.out.println(rfilename);
+            System.out.println(rext);
+
+
+            image = getScaledImageAndRotated(image, imgItem.getRotationStatus(),rext);           
+
+            baos = ImageFuncs.createImageOutputStream(image, rext);
+            //baos = ImageFuncs.createImageOutputStream(image);
+            
+            
             byte[] resultImageAsRawBytes = baos.toByteArray();
             bais = new ByteArrayInputStream(resultImageAsRawBytes, 0, resultImageAsRawBytes.length);
             
@@ -106,6 +124,9 @@ public class ImageUploadPolicy extends UploadPolicy{
          }else{
             filter.addExtension("jpg");
             filter.addExtension("jpeg");
+            //
+            filter.addExtension("gif");
+            filter.addExtension("png");
          }
          
          return filter;
@@ -119,7 +140,7 @@ public class ImageUploadPolicy extends UploadPolicy{
      * @param orgImage
      * @return
      */
-    private BufferedImage getScaledImageAndRotated(BufferedImage orgImage, int rotation)
+    private BufferedImage getScaledImageAndRotated(BufferedImage orgImage, int rotation, String rext)
     {
         int maxWidth = orgImage.getWidth();
         int maxHeight = orgImage.getHeight();
@@ -148,7 +169,7 @@ public class ImageUploadPolicy extends UploadPolicy{
             }            
         }
         
-        return ImageFuncs.getScaledAndRotatedImage(orgImage, maxWidth, maxHeight, rotation, false);
+        return ImageFuncs.getScaledAndRotatedImage(orgImage, maxWidth, maxHeight, rotation, false, rext);
     }
     
     /**

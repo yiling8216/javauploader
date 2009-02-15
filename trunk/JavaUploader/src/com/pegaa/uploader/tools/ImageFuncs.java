@@ -35,6 +35,7 @@ public class ImageFuncs {
      */
     public static ByteArrayOutputStream createImageOutputStream(BufferedImage image)
     {	
+        System.out.println("ByteArrayOutputStream method called.");
         ByteArrayOutputStream baos = new ByteArrayOutputStream( 4194304 );
         try {
             javax.imageio.ImageIO.write(image, "jpg", baos);
@@ -43,6 +44,22 @@ public class ImageFuncs {
             return null;
         }
 	return baos;	
+     }
+     
+     //Raz - Overload this function to accept file extension so that the image uploaded will follow the original file format
+     //Previous function can be removed later on
+    public static ByteArrayOutputStream createImageOutputStream(BufferedImage image, String rext)
+    {	
+       System.out.println("ByteArrayOutputStream with ext method called.");
+       System.out.println(rext);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream( 4194304 );
+        try {
+            javax.imageio.ImageIO.write(image, rext, baos);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+      return baos;	
      }
     
     /**
@@ -57,12 +74,14 @@ public class ImageFuncs {
      * @return
      */
     public static BufferedImage getScaledAndRotatedImage
-            (BufferedImage image, int maxWidth, int maxHeight, int status, boolean thumb)
+            (BufferedImage image, int maxWidth, int maxHeight, int status, boolean thumb, String rext)
     {
+    
+        System.out.println("::::::::::::getScaledAndRotatedImage method called with ext:" + rext);
         BufferedImage retImage = null;
         int newWidth, newHeight;
         
-	int imageWidth = image.getWidth();
+        int imageWidth = image.getWidth();
         int imageHeight = image.getHeight();
         
         
@@ -70,24 +89,41 @@ public class ImageFuncs {
         {
            double widthRatio = (double) imageWidth / (double) maxWidth;
            double heightRatio = (double) imageHeight / (double) maxHeight;
+           
            double ratio = Math.max(widthRatio, heightRatio);
+           
            newWidth = (int) (imageWidth / ratio);
            newHeight = (int) (imageHeight / ratio);
         }else{
-	   newWidth = imageWidth;
-	   newHeight = imageHeight;
+           newWidth = imageWidth;
+           newHeight = imageHeight;
         }
 		
         BufferedImage thumbImage = null;
-        thumbImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+        
+        //Raz - Somehow ARGB have issues during upload, color tend to messed up
+        //Raz - ARGB is required for png gif to preserve transparency
+        //thumbImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        if(rext.equals("png") || rext.equals("gif")){
+          //With transparency
+          thumbImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+          System.out.println("::::::::::::With transparency");
+        }else{
+          //Without transparency
+          System.out.println("::::::::::::Without transparency");
+          thumbImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
+        }
 	
-	Graphics2D graphics2D = thumbImage.createGraphics();
-	if(!thumb){
-            graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        Graphics2D graphics2D = thumbImage.createGraphics();
+        
+        if(!thumb){
+          graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         }
-	if(thumb){
-            graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        
+        if(thumb){
+          graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         }
+        
         graphics2D.drawImage(image, 0, 0, newWidth, newHeight, null);
         retImage = thumbImage;
         
