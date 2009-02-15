@@ -116,14 +116,14 @@ public class ImageItem extends ListItem{
         this.width = width;
         this.height = height;
         BufferedImage image = null;
-        String rext = "";
+        String _rext = "";
         try{
                 //Raz - Read all imagefile that ImageIO can
                 //Iterator readers = ImageIO.getImageReadersByFormatName("jpeg");
                 String rfilename = this.file.toString();
-                rext = rfilename.substring(rfilename.lastIndexOf('.')+1, rfilename.length());
+                _rext = rfilename.substring(rfilename.lastIndexOf('.')+1, rfilename.length());
 
-                Iterator readers = ImageIO.getImageReadersBySuffix(rext);
+                Iterator readers = ImageIO.getImageReadersBySuffix(_rext);
                 
                 ImageReader reader = (ImageReader)readers.next();
                 ImageInputStream iis = ImageIO.createImageInputStream(this.file);
@@ -143,7 +143,7 @@ public class ImageItem extends ListItem{
         if(image == null){
             return;
         }
-        this.rext = rext;
+        this.rext = _rext;
         thumbImage0 = ImageFuncs.getScaledAndRotatedImage(image, width, height, NORMAL, true, rext);      
         this.thumbImage = thumbImage0;
         notifyListeners();

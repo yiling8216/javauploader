@@ -35,7 +35,7 @@ public class ImageFuncs {
      */
     public static ByteArrayOutputStream createImageOutputStream(BufferedImage image)
     {	
-        System.out.println("ByteArrayOutputStream method called.");
+        //System.out.println("ByteArrayOutputStream method called.");
         ByteArrayOutputStream baos = new ByteArrayOutputStream( 4194304 );
         try {
             javax.imageio.ImageIO.write(image, "jpg", baos);
@@ -50,8 +50,10 @@ public class ImageFuncs {
      //Previous function can be removed later on
     public static ByteArrayOutputStream createImageOutputStream(BufferedImage image, String rext)
     {	
-       System.out.println("ByteArrayOutputStream with ext method called.");
-       System.out.println(rext);
+        /*
+        System.out.println("ByteArrayOutputStream with ext method called.");
+        System.out.println(rext);
+        */
         ByteArrayOutputStream baos = new ByteArrayOutputStream( 4194304 );
         try {
             javax.imageio.ImageIO.write(image, rext, baos);
@@ -76,8 +78,9 @@ public class ImageFuncs {
     public static BufferedImage getScaledAndRotatedImage
             (BufferedImage image, int maxWidth, int maxHeight, int status, boolean thumb, String rext)
     {
-    
+        /*
         System.out.println("::::::::::::getScaledAndRotatedImage method called with ext:" + rext);
+        */
         BufferedImage retImage = null;
         int newWidth, newHeight;
         
@@ -107,10 +110,10 @@ public class ImageFuncs {
         if(rext.equals("png") || rext.equals("gif")){
           //With transparency
           thumbImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
-          System.out.println("::::::::::::With transparency");
+          //System.out.println("::::::::::::With transparency");
         }else{
           //Without transparency
-          System.out.println("::::::::::::Without transparency");
+          //System.out.println("::::::::::::Without transparency");
           thumbImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
         }
 	
