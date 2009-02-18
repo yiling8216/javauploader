@@ -9,6 +9,7 @@ import com.pegaa.uploader.config.ConfigHolder;
 import com.pegaa.uploader.common.CustomFileFilter;
 import com.pegaa.uploader.config.DefaultParameters;
 import com.pegaa.uploader.sender.InputStreamInfo;
+import com.pegaa.uploader.tools.CustomLog;
 import com.pegaa.uploader.ui.filelist.item.ListItem;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -37,7 +38,15 @@ public class FileUploadPolicy extends UploadPolicy{
      */
     @Override
     public String getPostURL(ListItem item, String targetID) {
-        return null;
+        //return null;
+        /*
+          Raz - This was missing hence why it fail to upload file over
+        */
+        String uploadHandlerUrl = (String)this.configHolder.getObject("global.uploadHandlerUrl");
+        uploadHandlerUrl += targetID;
+        CustomLog.log("UploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
+        return uploadHandlerUrl;
+
     }
 
     /**
@@ -72,7 +81,11 @@ public class FileUploadPolicy extends UploadPolicy{
         //if any extension given we use them
         if(fileExtensions != null){
             String[] extensions = fileExtensions.split(",");
-            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT; i++){
+            /*
+              Raz - This line dont work for some reason, so lets try the same code for image
+            */
+            //for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT; i++){
+            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT && i<extensions.length; i++){
                 filter.addExtension(extensions[i]);
             }
          }
