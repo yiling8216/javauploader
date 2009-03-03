@@ -1,4 +1,3 @@
-#labels Featured
 *Applet's configuration variables*
  * *selectedFolder* -> if you user wants to upload files to a selected folder (user clicks uplaod to this folder button then comes to upload applet), when user clicks upload all files (images) will be uploaded to given receiver id (actually folder id)
 
