@@ -103,15 +103,15 @@ public class SelectedFileList extends javax.swing.JPanel implements java.awt.eve
 
         setLayout(new java.awt.GridLayout(1, 0));
 
-        javax.swing.GroupLayout selectedFileListMainPanelLayout = new javax.swing.GroupLayout(selectedFileListMainPanel);
+        org.jdesktop.layout.GroupLayout selectedFileListMainPanelLayout = new org.jdesktop.layout.GroupLayout(selectedFileListMainPanel);
         selectedFileListMainPanel.setLayout(selectedFileListMainPanelLayout);
         selectedFileListMainPanelLayout.setHorizontalGroup(
-            selectedFileListMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            selectedFileListMainPanelLayout.createParallelGroup(1)
+            //.addGap(0, 460, Short.MAX_VALUE)
         );
         selectedFileListMainPanelLayout.setVerticalGroup(
-            selectedFileListMainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 321, Short.MAX_VALUE)
+            selectedFileListMainPanelLayout.createParallelGroup(1)
+            //.addGap(0, 321, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(selectedFileListMainPanel);
