@@ -17,6 +17,7 @@
     jarsigner -keystore keystorefilename -storepass passofkey -keypass passofkey -signedjar rJavaUpload.jar JavaUpload.jar signFiles
     jarsigner -keystore keystorefilename -storepass passofkey -keypass passofkey -signedjar rmetadata-extractor-2.3.1.jar metadata-extractor-2.3.1.jar signFiles
     jarsigner -keystore keystorefilename -storepass passofkey -keypass passofkey -signedjar rCommonsLibs.jar CommonsLibs.jar signFiles
+    jarsigner -keystore keystorefilename -storepass passofkey -keypass passofkey -signedjar rswing-layout-1.0.3.jar swing-layout-1.0.3.jar signFiles
 }}}
 
 4. Insert the following html to embed the java applet in a html page.
@@ -52,7 +53,7 @@
         }
     </script>
       <param name="codebase" value="./">
-      <param name="archive" value="rCommonsLibs.jar,rmetadata-extractor-2.3.1.jar,rJavaUpload.jar">
+      <param name="archive" value="rCommonsLibs.jar,rmetadata-extractor-2.3.1.jar,rJavaUpload.jar,rswing-layout-1.0.3.jar">
       <param name="code" value="com.pegaa.uploader.UploaderApplet">
       <param name="UploadPolicy" value="image-with-exif">
       <param name="selectedFolder" value="images">
