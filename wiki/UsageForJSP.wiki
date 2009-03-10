@@ -3,7 +3,7 @@
 
 = Usage of Applet in JSP =
 
-Follow the guidelines in [[Usage]] 1 to 4. This java code for the 5th step. 
+Follow the guidelines in [Usage] 1 to 4. This java code for the 5th step. 
 
 
 {{{
