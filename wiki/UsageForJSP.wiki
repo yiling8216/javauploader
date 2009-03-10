@@ -1,0 +1,38 @@
+#labels Featured
+#Usage of applet in JSP
+
+= Usage of Applet in JSP =
+
+{{{
+public synchronized void doFileUpload(HttpServletRequest request, HttpServletResponse response) throws java.io.IOException{
+request.setCharacterEncoding("UTF-8");
+	      
+// Create a factory for disk-based file items
+FileItemFactory factory = new DiskFileItemFactory();
+
+// Create a new file upload handler
+	    ServletFileUpload upload = new ServletFileUpload(factory);
+	    List items = null;
+	      
+	    try{
+	    	items = upload.parseRequest(request);
+	    }catch(org.apache.commons.fileupload.FileUploadException e){
+	    	e.printStackTrace();
+	    	return;
+	    }
+	    
+	    FileItem fileItem=null;
+	    
+	    for (Iterator i = items.iterator(); i.hasNext();){ 
+	    	fileItem = (FileItem) i.next();
+	    	if(!fileItem.isFormField())
+	    	{
+	    		item.write(new File("PATH_TO_FILE"));
+	    	}
+            else{
+	    		fileItem.delete();	  	
+      }
+   }
+
+  }
+}}}
