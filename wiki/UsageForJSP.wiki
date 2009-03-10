@@ -3,6 +3,9 @@
 
 = Usage of Applet in JSP =
 
+Follow the guidelines in [[Usage]] 1 to 4. This java code for the 5th step. 
+
+
 {{{
 public synchronized void doFileUpload(HttpServletRequest request, HttpServletResponse response) throws java.io.IOException{
 request.setCharacterEncoding("UTF-8");
