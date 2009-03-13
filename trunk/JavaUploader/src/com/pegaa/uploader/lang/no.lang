@@ -1,0 +1,22 @@
+bottomtoolbar.help=Hjelp
+bottomtoolbar.upload=Last opp
+bottomtoolbar.choose=--- VELG ---
+
+selectedfilelist.emptymessage=Du har ikke valgt noen elementer
+
+fileselection.tab1=Velg fil
+fileselection.tab2=Valgte filer
+fileselection.selectfile=Vennligst velg en fil
+
+fileselector.selectall=Velg alle
+fileselector.removeselected=Fjern valgte
+
+uploaduiitem.title=Filbane :
+
+uploaderui.stop=Stopp
+uploaderui.continue=Fortsett
+uploaderui.uploadagain=Last opp flere
+
+directorychooser.mycomputer=Min datamaskin
+
+listitemui.loading=Laster...
