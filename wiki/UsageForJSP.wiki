@@ -42,7 +42,7 @@ FileItemFactory factory = new DiskFileItemFactory();
 
 = Spring Framework Sample =
 
-
+{{{
    public ModelAndView uploadFiles(HttpServletRequest request, HttpServletResponse
 response){
 	    try{ 
@@ -64,3 +64,4 @@ response){
 	    }
         return new ModelAndView(uploaderShowTemplate);
     }
+}}}
