@@ -6,6 +6,8 @@
 package com.pegaa.uploader;
 
 import com.pegaa.uploader.config.DefaultConfigHolder;
+import com.pegaa.uploader.tools.SecurityStatusChecker;
+import com.pegaa.uploader.ui.AppletDeniedMessageContainer;
 import com.pegaa.uploader.ui.MainContainer;
 import javax.swing.JApplet;
 
@@ -15,12 +17,20 @@ import javax.swing.JApplet;
  */
 public class UploaderApplet extends JApplet {
 
+    private AppletDeniedMessageContainer fallbackContainer = null;
     private DefaultConfigHolder configHolder = null;
     private MainContainer mainContainer = null;
     
     @Override
     public void init() {
-        initApplet();
+        //check if security dialog is accepted (if user clicked Run)
+        //security status handler javascript function will be called
+        //if security dialog is not accepted.
+        if(SecurityStatusChecker.isSecurityDialogAccepted(this)){
+            initApplet();
+        }else{
+            prepareSecurityFallbackGUI();
+        }
     }
 
     
@@ -47,4 +57,16 @@ public class UploaderApplet extends JApplet {
          this.add(mainContainer);
      }
     
+     /**
+      * If user does not accept security dialog this function will prepare
+      * a message 
+      */
+     private void prepareSecurityFallbackGUI()
+     {
+         this.setLayout(new java.awt.GridLayout(1, 0));
+          
+         fallbackContainer = new AppletDeniedMessageContainer(this);
+         this.add(fallbackContainer);
+     }
+     
 }

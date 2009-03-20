@@ -20,3 +20,5 @@ uploaderui.uploadagain=Upload Again
 directorychooser.mycomputer=My Computer
 
 listitemui.loading=Loading...
+
+fallbackgui.message=You did not accept security dialog, if you want to use this tool you must accept security dialog.
