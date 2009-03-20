@@ -20,3 +20,5 @@ uploaderui.uploadagain=Last opp flere
 directorychooser.mycomputer=Min datamaskin
 
 listitemui.loading=Laster...
+
+fallbackgui.message=You did not accept security dialog, if you want to use this tool you must accept security dialog.

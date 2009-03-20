@@ -18,3 +18,5 @@ uploaderui.continue=Devam
 uploaderui.uploadagain=Tekrar Y\u00fckle
 
 directorychooser.mycomputer=Bilgisayar\u0131m
+
+fallbackgui.message=You did not accept security dialog, if you want to use this tool you must accept security dialog.
