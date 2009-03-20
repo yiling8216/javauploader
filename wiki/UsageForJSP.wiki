@@ -42,6 +42,8 @@ FileItemFactory factory = new DiskFileItemFactory();
 
 = Spring Framework Sample =
 
+thnx to *sid.maz73*
+
 {{{
    public ModelAndView uploadFiles(HttpServletRequest request, HttpServletResponse
 response){
