@@ -100,7 +100,16 @@
         $filekeys = array_keys($_FILES);
         $filekey=$filekeys[0];
         
-        $uploaddir = dirname($_SERVER['PATH_TRANSLATED']).$tofold;
+	//Not all server configuration supports PATH_TRANSLATED
+	if($_SERVER['PATH_TRANSLATED']!=""){
+		$uploaddir = dirname($_SERVER['PATH_TRANSLATED']).$tofold;
+	}else if($_SERVER["SCRIPT_FILENAME"]!=""){
+		$uploaddir = dirname($_SERVER["SCRIPT_FILENAME"]).$tofold;
+	}else{
+		//Type in your full filesystem path e.g.
+		//$uploaddir = "/var/www/home".$tofold;
+	}
+
         $uploadfile = $uploaddir . basename($_FILES[$filekey]['name']);
 
         if (move_uploaded_file($_FILES[$filekey]['tmp_name'], $uploadfile)) {
