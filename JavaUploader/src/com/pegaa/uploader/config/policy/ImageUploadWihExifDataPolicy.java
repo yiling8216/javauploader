@@ -88,7 +88,7 @@ public class ImageUploadWihExifDataPolicy extends ImageUploadPolicy {
         StringBuffer buf = new StringBuffer();
         buf.append("&exif=");
                         
-        StringBuffer exifBuf = new StringBuffer();
+        /*StringBuffer exifBuf = new StringBuffer();
                 
         exifBuf.append(getURLEncodedString(exif.brightness));
         exifBuf.append(splitChar).append(getURLEncodedString(exif.colorspace));
@@ -107,8 +107,9 @@ public class ImageUploadWihExifDataPolicy extends ImageUploadPolicy {
         exifBuf.append(splitChar).append(getURLEncodedString(exif.yukseklik));
         exifBuf.append(splitChar).append(getURLEncodedString(exif.genislik));
         exifBuf.append(splitChar).append(getURLEncodedString(exif.exposuretime));
+        */
                
-        buf.append(exifBuf.toString());
+        buf.append(URLUTF8Encoder.encode(exif.exifdata));
         
         return buf.toString();		
     }
