@@ -108,8 +108,10 @@ public class ImageUploadWihExifDataPolicy extends ImageUploadPolicy {
         exifBuf.append(splitChar).append(getURLEncodedString(exif.genislik));
         exifBuf.append(splitChar).append(getURLEncodedString(exif.exposuretime));
         */
-               
-        buf.append(URLUTF8Encoder.encode(exif.exifdata));
+
+        //For some reason the URLUTF8Encoder breaks on some files
+        //buf.append(URLUTF8Encoder.encode(exif.exifdata));
+        buf.append(exif.exifdata);
         
         return buf.toString();		
     }
