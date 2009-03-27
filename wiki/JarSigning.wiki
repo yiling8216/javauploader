@@ -1,4 +1,3 @@
-#labels Featured
 = Jar Signing Guide =
 1. You will need the latest JavaUploader and Java JDK (_Available at http://java.sun.com/javase/ _). In the screenshot below I am using JDK 5.0
 
