@@ -20,6 +20,8 @@
     jarsigner -keystore keystorefilename -storepass passofkey -keypass passofkey -signedjar rswing-layout-1.0.3.jar swing-layout-1.0.3.jar signFiles
 }}}
 
+    _A more detailed steps to sign the jar is provided at http://code.google.com/p/javauploader/wiki/JarSigning _
+
 4. Insert the following html to embed the java applet in a html page.
 {{{
     <script type="text/javascript">
