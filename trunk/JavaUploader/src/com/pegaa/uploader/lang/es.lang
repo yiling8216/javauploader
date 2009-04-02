@@ -1,0 +1,24 @@
+bottomtoolbar.help=Ayuda
+bottomtoolbar.upload=Subir
+bottomtoolbar.choose=--- Seleciona Uno ---
+
+selectedfilelist.emptymessage=Debes seleccionar una imagen
+
+fileselection.tab1=Escoger archivo
+fileselection.tab2=Archivos Seleccionados
+fileselection.selectfile=Por favor selecciona un Archivo
+
+fileselector.selectall=Seleccionar Todos
+fileselector.removeselected=Borrar Seleccionados
+
+uploaduiitem.title=Ruta :
+
+uploaderui.stop=Parar
+uploaderui.continue=Continuar
+uploaderui.uploadagain=Subir denuevo
+
+directorychooser.mycomputer=Mi PC
+
+listitemui.loading=Cargando...
+
+fallbackgui.message=No aceptaste el diálogo de seguridad, debes aceptarlo para poder utilizar esta herramienta.
