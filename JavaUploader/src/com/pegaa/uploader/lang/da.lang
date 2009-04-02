@@ -1,0 +1,25 @@
+bottomtoolbar.help=Hjælp
+bottomtoolbar.upload=Upload
+bottomtoolbar.choose=--- Vælg fil ---
+
+selectedfilelist.emptymessage=Du har ikke valgt nogen filer
+
+fileselection.tab1=Vælg fil
+fileselection.tab2=Valgte filer
+fileselection.selectfile=Vælg venligst en fil
+
+fileselector.selectall=Vælg alle
+fileselector.removeselected=Fjern valgte
+
+uploaduiitem.title=Sti :
+
+uploaderui.stop=Stop
+uploaderui.continue=Fortsæt
+uploaderui.uploadagain=Upload flere
+
+directorychooser.mycomputer=Denne computer
+
+listitemui.loading=Loader...
+
+fallbackgui.message=Du accepterede ikke sikkerhedsdialogen. Du er nødt til at acceptere sikkerhedsdialogen for at kunne benytte dette værktøj.
+
