@@ -83,7 +83,7 @@
     </object>
 }}}
 
-5. Code a php to accept the file and output it to the necessary folder
+5. Code a php to accept the file and output it to the necessary folder (Make sure the folder is writeable!)
 {{{
     <?php
 
