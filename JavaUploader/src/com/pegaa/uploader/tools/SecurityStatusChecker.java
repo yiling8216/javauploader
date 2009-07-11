@@ -37,7 +37,7 @@ public class SecurityStatusChecker {
     {
         JSObject jso = JSObject.getWindow(applet);
         try{
-            jso.call("JUPDeniedHandler", new String[]{""});
+            jso.call("JUP_eventhandler", new String[]{"applet_denied"});
         }catch(Exception e){
             e.printStackTrace(); 
         } 

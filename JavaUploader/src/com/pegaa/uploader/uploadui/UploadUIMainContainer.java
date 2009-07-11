@@ -148,7 +148,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
     {
         JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
         try{
-            jso.call("relocate", new String[]{"gofolder", targetID});
+            jso.call("JUP_eventhandler", new String[]{"gofolder", targetID});
         }catch(Exception e){
             e.printStackTrace(); 
         }      
@@ -158,7 +158,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
     {
         JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
         try{
-            jso.call("relocate", new String[]{"again", targetID});
+            jso.call("JUP_eventhandler", new String[]{"again", targetID});
         }catch(Exception e){
             e.printStackTrace(); 
         }  
