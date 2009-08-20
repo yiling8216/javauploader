@@ -1,4 +1,10 @@
 #labels Featured,Phase-Design
-*RoadMap (Last Update 22-06-2009)*
+*RoadMap (Last Update 20-08-2009)*
 
   * Reorganize js callbacks, implement one js callback.
+  * add ability to limit uploads
+  * image upload without compression
+  * folder selection
+  * reorganize parameters, parameter names if needed
+  * add ability to configure image compression if compression active
+  * improve documentation
