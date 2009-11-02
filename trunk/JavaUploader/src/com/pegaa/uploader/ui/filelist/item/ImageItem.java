@@ -23,7 +23,7 @@ import javax.imageio.stream.ImageInputStream;
  * @author tayfun
  */
 public class ImageItem extends ListItem{
-    
+
     /**
      *  current rotation status flags
      */
@@ -35,29 +35,29 @@ public class ImageItem extends ListItem{
      * current rotation status
      */
     private int status = NORMAL;
-    
+
     private BufferedImage thumbImage0 = null;
     private String rext = "";
-       
+
     /**
      *  WIDTH and HEIGHT is metrics of thumbnail width and height
      */
     public static final int WIDTH = 125;
     public static final int HEIGHT = 100;
-    
-    
-    
+
+
+
     /**
      *  width and height value holders.
      */
     private int width;
     private int height;
-      
+
     public ImageItem(ConfigHolder configHolder, File file)
     {
         super(configHolder, file);
     }
-    
+
     public int getRotationStatus(){
         return this.status;
     }
@@ -93,22 +93,22 @@ public class ImageItem extends ListItem{
             status = LEFT;
         }else if(status == RIGHT){
             status = DOWNSIDE;
-        }   
+        }
         updateThumbImage();
         notifyListeners();
     }
-    
+
     @Override
     public void init(){
          init(WIDTH, HEIGHT);
     }
-    
+
     /**
-     *      Init this item, prepare variables, read thumb image from disk.
-     * 
+     *Init this item, prepare variables, read thumb image from disk.
+     *
      * @param width
      * @param height
-     */ 
+     */
     public void init(int width, int height){
         if(thumbImage0 != null){
             return;
@@ -122,12 +122,17 @@ public class ImageItem extends ListItem{
                 //Iterator readers = ImageIO.getImageReadersByFormatName("jpeg");
                 String rfilename = this.file.toString();
                 _rext = rfilename.substring(rfilename.lastIndexOf('.')+1, rfilename.length());
+                //fix-add
+                File file = new File(rfilename);
+                image = ImageIO.read(file);
 
-                Iterator readers = ImageIO.getImageReadersBySuffix(_rext);
-                
+                /*Iterator readers = ImageIO.getImageReadersBySuffix(_rext);
+
                 ImageReader reader = (ImageReader)readers.next();
                 ImageInputStream iis = ImageIO.createImageInputStream(this.file);
                 reader.setInput(iis);
+               System.out.println("Fichero descargado");
+
                 if(reader.hasThumbnails(0)){
                     image =  reader.readThumbnail(0, 0);
                 }else{
@@ -136,20 +141,21 @@ public class ImageItem extends ListItem{
                        param.setSourceSubsampling(10, 10, 0 , 0);
                     }
                     image = reader.read(0, param);
-                }
+                }*/
+
         }catch(Exception e){
                 e.printStackTrace();
-        }      
+        }
         if(image == null){
             return;
         }
         this.rext = _rext;
-        thumbImage0 = ImageFuncs.getScaledAndRotatedImage(image, width, height, NORMAL, true, rext);      
+        thumbImage0 = ImageFuncs.getScaledAndRotatedImage(image, width, height, NORMAL, true, rext);
         this.thumbImage = thumbImage0;
         notifyListeners();
     }
 
-     
+
     private void updateThumbImage(){
         if(this.thumbImage0 == null){
             return;
@@ -157,19 +163,19 @@ public class ImageItem extends ListItem{
         BufferedImage image = thumbImage0;
         thumbImage = ImageFuncs.getScaledAndRotatedImage(image, this.width, this.height, status, true, this.rext);
     }
-    
 
-    
+
+
     /**
      *      If this i
-     * 
+     *
      * @return
      */
     public JpegExif getExif(){
         JpegExif exif = new JpegExif();
         try{
             exif.readJPEGMeta(this.file.getAbsolutePath());
-	}catch(Exception e){   
+	}catch(Exception e){
 			 e.printStackTrace();
         }
         return exif;
