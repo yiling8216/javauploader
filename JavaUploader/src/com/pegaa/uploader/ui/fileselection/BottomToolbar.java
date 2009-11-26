@@ -146,6 +146,7 @@ public class BottomToolbar extends javax.swing.JPanel {
         targetFolderList = new javax.swing.JComboBox();
         jPanel1 = new javax.swing.JPanel();
 
+        setPreferredSize(new java.awt.Dimension(120, 100));
         setLayout(new java.awt.BorderLayout());
 
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 10));
