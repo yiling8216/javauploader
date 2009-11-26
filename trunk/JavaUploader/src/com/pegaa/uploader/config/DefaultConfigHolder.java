@@ -42,6 +42,7 @@ public class DefaultConfigHolder extends ConfigHolder {
             this.initLang(applet);
             this.initSessionVariables(applet);
             this.initFileFilterVariables(applet);
+            this.initMaxUploadCount(applet);
     }
     
     /*
@@ -192,6 +193,12 @@ public class DefaultConfigHolder extends ConfigHolder {
     {
         String uploadHandlerUrl = applet.getParameter("uploadHandlerUrl");
         this.map.put("global.uploadHandlerUrl", uploadHandlerUrl);
+    }
+
+    private void initMaxUploadCount(JApplet applet)
+    {
+        String fileUploadLimit = applet.getParameter("fileUploadLimit");
+        this.map.put("global.fileUploadLimit", fileUploadLimit);
     }
     
 }

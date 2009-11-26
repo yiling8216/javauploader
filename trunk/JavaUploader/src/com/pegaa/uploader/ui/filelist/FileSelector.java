@@ -9,6 +9,7 @@ package com.pegaa.uploader.ui.filelist;
 import com.pegaa.uploader.config.ConfigHolder;
 import com.pegaa.uploader.lang.Lang;
 import com.yugruk.chooser.DirectorySelectionListener;
+import java.awt.Dimension;
 import java.io.File;
 
 
@@ -43,9 +44,26 @@ public class FileSelector extends javax.swing.JPanel {
     private void initFileSelector()
     {
          this.fileList1.setConfigHolder(configHolder);
+         initSelectedFileCountBar();
          initEventListeners();       
     }
-    
+
+    /**
+     * If file upload limit is set we should show the indicator bar.
+     */
+    private void initSelectedFileCountBar()
+    {
+         if(this.configHolder.getObject("global.fileUploadLimit") != null)
+         {
+             SelectedFileCountBar sfcd = new SelectedFileCountBar();
+             sfcd.setConfigHolder(configHolder);
+             jPanel2.add(sfcd, java.awt.BorderLayout.PAGE_END);
+             jPanel2.setPreferredSize(new Dimension(120, 80));
+             sfcd.setPreferredSize(new Dimension(120, 30));
+             sfcd.setVisible(true);
+         }
+    }
+
     private void initDirectoryChooser()
     {
         this.directoryTree1.setConfigHolder(configHolder);
@@ -100,7 +118,6 @@ public class FileSelector extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         jSplitPane1.setDividerLocation(200);
-        jSplitPane1.setDividerSize(5);
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(275, 275));
         jScrollPane1.setViewportView(directoryTree1);
@@ -114,9 +131,13 @@ public class FileSelector extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(100, 40));
+        jPanel2.setMaximumSize(new java.awt.Dimension(100, 50));
+        jPanel2.setMinimumSize(new java.awt.Dimension(100, 50));
+        jPanel2.setPreferredSize(new java.awt.Dimension(300, 50));
         jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setMinimumSize(new java.awt.Dimension(100, 19));
+        jPanel3.setPreferredSize(new java.awt.Dimension(120, 40));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         buttonSelectAll.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -135,7 +156,7 @@ public class FileSelector extends javax.swing.JPanel {
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(jPanel2, java.awt.BorderLayout.SOUTH);
+        jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_END);
 
         jSplitPane1.setRightComponent(jPanel1);
 

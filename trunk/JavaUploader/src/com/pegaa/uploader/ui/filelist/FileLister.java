@@ -28,40 +28,41 @@ import javax.swing.JPanel;
 public class FileLister implements ItemSelectionListener, SelectedFileListListener{
 
     private ConfigHolder configHolder = null;
-    
+
     /**
-     *  FileItemUIs holder component 
+     *  FileItemUIs holder component
      */
     private JPanel fileListPanel = null;
     /**
      * parent of fileListPanel
      */
     private JPanel parentPanel = null;
-    
+
     /**
-     *  Listeners of listing status 
+     *  Listeners of listing status
      */
     private ArrayList<FileListingListener> fileListingListeners = null;
-    
+
     /**
      *  Loads thumbnails of ListItemUIs thumbnail images and displays them
      */
     private ThumbLoaderThread thumbLoaderThread = null;
-    
+
     /**
      * Internal list of active folders ListItemUIs for further use
      */
     private ArrayList<ListItemUI> fileListItemUIs = null;
-    
+
     private UploadPolicy policy = null;
-    
+
     private FileFilter fileFilter = null;
-    
+
+
     /**
-     *  SelectedFileListModel reference 
+     *  SelectedFileListModel reference
      */
     private SelectedFileListModel selectedFileListModel = null;
-    
+
     public FileLister(ConfigHolder configHolder, JPanel fileListPanel, JPanel parentPanel)
     {
         this.configHolder = configHolder;
@@ -73,19 +74,19 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
         this.policy = (UploadPolicy)this.configHolder.getObject("global.policy");
         this.fileFilter = policy.getFileFilter();
     }
-    
+
     /**
      *      Adds the listener of file listing events
-     * 
+     *
      * @param l
      */
     public void addFileListingListener(FileListingListener l)
     {
         this.fileListingListeners.add(l);
     }
-       
+
     /**
-     *      
+     *
      * @param dir
      */
     public void listDirectory(File dir)
@@ -99,16 +100,16 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
         //
         this.notifyFinishedListing(this.fileListItemUIs.size());
     }
-    
+
     private void stopThumbLoader()
     {
         if(this.thumbLoaderThread != null)
             this.thumbLoaderThread.stopLoadingThumbs();
     }
-    
+
     /**
      *  we must cleanup listeners while removing old itemUI
-     * 
+     *
      */
     private void removeFileItemUIs()
     {
@@ -118,19 +119,19 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
         }
         this.fileListItemUIs = new ArrayList<ListItemUI>(20);
     }
-    
+
     /**
      *  create fileItemUIs and add them to the fileList. We check if
      * ListItem is already exists in the selectedFileList and if exists
-     * we use already added ListItem and set selected state of ListItemUI 
+     * we use already added ListItem and set selected state of ListItemUI
      * to true.Else we create brand new ListItem and use it.
-     * 
-     * 
+     *
+     *
      * @param dir
      */
     private void createAndAddFileItemUIs(File dir)
     {
-         
+
          File files[] = dir.listFiles(fileFilter);
          if(files == null)return;
          int len = files.length;
@@ -139,23 +140,23 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
             ListItem item = null;
             ListItemUI itemUI = new ListItemUI();
             itemUI.setConfigHolder(configHolder);
-            
+
             int ind = this.selectedFileListModel.contains(files[i]);
-            
+
             if(ind == -1){
                 //item = new ImageItem(this.configHolder, files[i]);
                 item = this.createListItem(files[i]);
             }else{
-                item = this.selectedFileListModel.getItem(ind);  
+                item = this.selectedFileListModel.getItem(ind);
                 itemUI.setSelected(true);
             }
-            
+
             itemUI.setItem(item, policy.getPolicyType() == ImageUploadPolicy.POLICY_TYPE_IMG ? true : false);
             itemUI.addItemSelectionListener(this);
-            
+
             this.fileListItemUIs.add(itemUI);
             this.notifyListItemAdded(itemUI);
-            
+
          }
 
          if(len > 0 && policy.getPolicyType() == ImageUploadPolicy.POLICY_TYPE_IMG)
@@ -164,9 +165,9 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
              this.thumbLoaderThread.setListItemUIs(fileListItemUIs);
              this.thumbLoaderThread.start();
          }
-         
+
     }
-    
+
     private ListItem createListItem(File f)
     {
          if(this.policy.getPolicyType() == ImageUploadPolicy.POLICY_TYPE_IMG){
@@ -175,8 +176,8 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
              return new FileItem(this.configHolder, f);
          }
     }
-    
-    
+
+
     /**
      *  get and set local instance of selectedFileListModel from config.
      */
@@ -187,19 +188,27 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
                 this.selectedFileListModel.addSelectedFileListListener(this);
          }
     }
-    
+
     /**
      *  Selectes all of the current files listed
      */
+     //fix-add: metodo MODIFICADO pa limitar seleccionados
     public void selectAll()
     {
         int len = this.fileListItemUIs.size();
         for(int i=0; i<len; i++)
         {
-            this.selectedFileListModel.add(this.fileListItemUIs.get(i).getItem());
+            if(!this.fileListItemUIs.get(i).isSelected()){
+                   boolean isAdded = this.selectedFileListModel.add(
+                                                    this.fileListItemUIs.get(i).getItem());
+                   if(!isAdded){
+                       this.fileListItemUIs.get(i).setSelected(false);
+                       break;
+                   }
+            }
         }
     }
-    
+
     /**
      *  Removes all selected files.
      */
@@ -212,10 +221,10 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
             if(itemUI.isSelected()){
                 this.selectedFileListModel.remove(itemUI.getItem());
             }
-        }        
+        }
     }
-    
-    
+
+
     private void notifyStartedListing()
     {
         int len = this.fileListingListeners.size();
@@ -224,14 +233,14 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
             this.fileListingListeners.get(i).listingStarted();
         }
     }
-    
+
     private void notifyFinishedListing(int count)
     {
         int len = this.fileListingListeners.size();
         for(int i=0; i<len; i++)
         {
             this.fileListingListeners.get(i).listingFinished(count);
-        }       
+        }
     }
 
     private void notifyListItemAdded(ListItemUI itemUI)
@@ -240,26 +249,26 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
         for(int i=0; i<len; i++)
         {
             this.fileListingListeners.get(i).listItemAdded(itemUI);
-        }            
+        }
     }
-    
+
     /**
-     *      Listens the file items for selection event and 
+     *      Listens the file items for selection event and
      * invokes SelectedFileListModel appropriate function.
-     * 
+     *
      * @param item is current "event raiser" object
      */
-    public void itemSelected(ListItem item) {
-        this.selectedFileListModel.add(item);
+    public boolean itemSelected(ListItem item) {
+        return this.selectedFileListModel.add(item);
     }
 
     public void itemUnSelected(ListItem item) {
-        this.selectedFileListModel.remove(item);      
+        this.selectedFileListModel.remove(item);
     }
 
     /**
      *  SelectedFileListModel listener
-     * 
+     *
      * @param f
      */
     public void fileAdded(ListItem f) {
@@ -287,5 +296,5 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
     public void itemUIMouseOverEvent(String s) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
 }
