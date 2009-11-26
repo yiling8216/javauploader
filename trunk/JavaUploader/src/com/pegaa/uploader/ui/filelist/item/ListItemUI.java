@@ -167,13 +167,19 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
             this.selectionListeners.remove(i);
         }
     }
-    
+
+    /*
+     * Notify checkbox status listeners
+    */
     private void notifyItemSelectionListeners()
     {
         int len = this.listenerCount;
         for(int i=0; i<len; i++){
             if(this.jCheckBox1.isSelected()){
-                this.selectionListeners.get(i).itemSelected(item);
+                //
+                if(!this.selectionListeners.get(i).itemSelected(item)){
+                    this.setSelected(false);
+                }
             }else{
                 this.selectionListeners.get(i).itemUnSelected(item);
             }
