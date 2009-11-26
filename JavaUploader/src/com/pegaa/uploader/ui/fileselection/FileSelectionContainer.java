@@ -48,17 +48,33 @@ public class FileSelectionContainer extends javax.swing.JPanel implements Action
     
     private void updateComponents()
     {
+        initFileListModel();
+
         this.bottomToolbar1.setConfigHolder(configHolder);
         this.bottomToolbar1.addActionListener(this);
         
         this.selectedFileList1.setConfigHolder(configHolder);
         this.fileSelector1.setConfigHolder(configHolder);
-        selectedFileListmodel = new SelectedFileListModel();
+
         this.selectedFileList1.setListModel(selectedFileListmodel);
+       
+    }
+
+    private void initFileListModel()
+    {
+        //TEST
+        //configHolder.add("global.maxNumUploads", "10");
+        selectedFileListmodel = new SelectedFileListModel();
         /* we store SelectedFileListModel object to the global map. */
         this.configHolder.add("global.selected-file-list-model", selectedFileListmodel);
+
+        /* if there is a file upload limit set it */
+        String max = (String)this.configHolder.getObject("global.fileUploadLimit");
+        if(max != null){
+            selectedFileListmodel.setMaxFileCount(Integer.parseInt(max));
+        }
     }
-    
+
     /**
      *  Returns internal model created by this class
      * 
@@ -115,21 +131,16 @@ public class FileSelectionContainer extends javax.swing.JPanel implements Action
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bottomToolbar1 = new com.pegaa.uploader.ui.fileselection.BottomToolbar();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         fileSelector1 = new com.pegaa.uploader.ui.filelist.FileSelector();
         jPanel2 = new javax.swing.JPanel();
         selectedFileList1 = new com.pegaa.uploader.ui.selectedfilelist.SelectedFileList();
+        bottomToolbar1 = new com.pegaa.uploader.ui.fileselection.BottomToolbar();
 
         setLayout(new java.awt.BorderLayout());
 
-        bottomToolbar1.setPreferredSize(new java.awt.Dimension(283, 40));
-        add(bottomToolbar1, java.awt.BorderLayout.SOUTH);
-
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
-
-        fileSelector1.setPreferredSize(new java.awt.Dimension(250, 277));
         jPanel1.add(fileSelector1);
 
         jTabbedPane1.addTab("", jPanel1);
@@ -140,6 +151,10 @@ public class FileSelectionContainer extends javax.swing.JPanel implements Action
         jTabbedPane1.addTab("", jPanel2);
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+
+        bottomToolbar1.setMinimumSize(new java.awt.Dimension(120, 43));
+        bottomToolbar1.setPreferredSize(new java.awt.Dimension(120, 100));
+        add(bottomToolbar1, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
     
     

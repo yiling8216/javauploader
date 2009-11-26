@@ -32,7 +32,7 @@ public class FileList extends javax.swing.JPanel implements FileListingListener{
     private FileLister fileLister = null;
     
     /* Loads thumb images of original images if mode is image mode */
-    private ThumbLoaderThread thumbLoaderThread = null;
+    //private ThumbLoaderThread thumbLoaderThread = null;
     private boolean canList = true;
        
     
@@ -53,7 +53,7 @@ public class FileList extends javax.swing.JPanel implements FileListingListener{
     {
         this.configHolder = configHolder;
         this.fileLister = new FileLister(this.configHolder, this.fileList, this);
-        this.thumbLoaderThread = new ThumbLoaderThread();        
+        //this.thumbLoaderThread = new ThumbLoaderThread();
         initFileList();
     }
     
