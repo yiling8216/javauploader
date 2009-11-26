@@ -13,8 +13,8 @@ import com.pegaa.uploader.ui.filelist.item.ListItem;
  */
 public interface ItemSelectionListener {
         
-        public void itemSelected(ListItem item);
-    
+        public boolean itemSelected(ListItem item);
+
         public void itemUnSelected(ListItem item);
         
         public void itemUIMouseOverEvent(String s);

@@ -25,12 +25,12 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
 
     public static final int EVENT_ADD = 1;
     public static final int EVENT_REMOVE = 2;
-    
+
     private ConfigHolder configHolder = null;
     private SelectedFileListModel selectedFileListModel = null;
     private ArrayList<ListItemUI> listItemUIs = null;
     private ArrayList<java.awt.event.ItemListener> fileSelectionListeners = null;
-    
+
     public SelectedFileLister(ConfigHolder configHolder, SelectedFileListModel selectedFileListModel)
     {
         this.configHolder = configHolder;
@@ -39,24 +39,32 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
         listItemUIs = new ArrayList<ListItemUI>(20);
         fileSelectionListeners = new ArrayList<java.awt.event.ItemListener>(2);
     }
-    
+
     public void addFileSelectionListeners(ItemListener l)
     {
         this.fileSelectionListeners.add(l);
     }
-    
-    public void itemSelected(ListItem item) {
-        this.selectedFileListModel.add(item);
+
+    public boolean itemSelected(ListItem item) {
+        //this.selectedFileListModel.add(item);
+        return true;
     }
+
+    //fix-add: metodo creado para limitar seleccionados
+    public boolean itemSelected_limited(ListItem item) {
+        this.selectedFileListModel.add(item);
+        return true;
+    }
+
 
     public void itemUnSelected(ListItem item) {
         this.selectedFileListModel.remove(item);
     }
-    
+
     /**
      *      SelectedFileListModel event fileAdded indicates that a new ListItem
      * is added to list
-     * 
+     *
      * @param f
      */
     public void fileAdded(ListItem f) {
@@ -66,15 +74,15 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
         itemUI.setItem(f, policy.getPolicyType() == ImageUploadPolicy.POLICY_TYPE_IMG ? true : false);
         itemUI.setSelected(true);
         itemUI.addItemSelectionListener(this);
-        
+
         this.notifyFileAdded(itemUI);
         this.listItemUIs.add(itemUI);
     }
 
     public void fileRemoved(ListItem f) {
-        
+
         int len = this.listItemUIs.size();
-        
+
         for(int i=0; i<len; i++)
         {
             if(this.listItemUIs.get(i).getItem() == f)
@@ -85,12 +93,12 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
                 len--;
             }
         }
-    }   
+    }
 
     /**
      *  we notify UI presentation of ListItemUIs so that UI will reflect
      * SelectedFileListModel's current list.
-     * 
+     *
      * @param itemUI
      */
     private void notifyFileAdded(ListItemUI itemUI)
@@ -101,7 +109,7 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
             this.fileSelectionListeners.get(i).itemStateChanged(new ItemEvent(this, EVENT_ADD, itemUI, 0));
         }
     }
-    
+
     private void notifyFileRemoved(ListItemUI itemUI)
     {
         int len = this.fileSelectionListeners.size();

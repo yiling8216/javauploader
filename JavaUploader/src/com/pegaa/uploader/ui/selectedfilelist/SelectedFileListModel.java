@@ -18,8 +18,10 @@ public class SelectedFileListModel {
 
     public static final int FILE_ADDED = 1;
     public static final int FILE_REMOVED = 2;
-    
-    public ArrayList<ListItem> listItems = null;
+
+    private Integer maxFileCount = null;
+
+    private ArrayList<ListItem> listItems = null;
     public ArrayList<SelectedFileListListener> listeners = null;
     
     public SelectedFileListModel()
@@ -27,19 +29,42 @@ public class SelectedFileListModel {
         this.listItems = new ArrayList<ListItem>(10);
         this.listeners = new ArrayList<SelectedFileListListener>(2);
     }
-    
+
+    /**
+     * Optional parameter, that limits the max selected file size
+     *
+     * @param maxFileCount
+     */
+    public void setMaxFileCount(Integer maxFileCount)
+    {
+        this.maxFileCount = maxFileCount;
+    }
+
     public void addSelectedFileListListener(SelectedFileListListener l)
     {
         this.listeners.add(l);
     }
-    
-    public void add(ListItem f)
+
+    /**
+     * This method first checks if max file count reached if max is reached it
+     * returns false to indicate this, if max is not reached it adds the file to
+     * list.
+     *
+     * @param f
+     * @return
+     */
+    public boolean add(ListItem f)
     {
+        if(isMaxFileCountReached()){
+            return false;
+        }
         int ind = this.contains(f);
         if(ind == -1){
             this.listItems.add(f);
             this.notifyListeners(FILE_ADDED, f);
+            return true;
         }
+        return false;
     }
     
     public void remove(ListItem f)
@@ -89,7 +114,24 @@ public class SelectedFileListModel {
         }
         return index;
     }   
-    
+
+    /**
+     * If max file count is set, this functions checks if list size is reached
+     * to max file count
+     * 
+     * @return
+     */
+    private boolean isMaxFileCountReached()
+    {
+        if(this.maxFileCount != null)
+        {
+            if(this.getSize() == this.maxFileCount){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void notifyListeners(int action, ListItem f)
     {
         int len = this.listeners.size();
@@ -101,5 +143,5 @@ public class SelectedFileListModel {
                 l.fileRemoved(f);
             }
         }
-    }  
+    }
 }
