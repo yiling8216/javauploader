@@ -23,6 +23,6 @@ Here you can show all selected files and remove some of them if you want to. Thi
 
 http://javauploader.googlecode.com/files/JavaUploader_FileUploadLimiting.jpg
 
-Starting from the 1.2 version, you can put a limit to uploads. If you add "fileUploadLimit" parameter a progressbar which indicates selected file count will be visible so that user know what is the upload limit. If you do not provide the parameter progressbar will not be visible.
+Starting from the 1.2 version, you can put a limit to uploads. If you add "fileUploadLimit" parameter to applet parameters, a progressbar component which indicates selected file count will be visible so that user know what is the upload limit. If you do not provide the parameter progressbar will not be visible.
 
 *PS.* : I am using Ubuntu 6.10 ;) http://www.ubuntu.com 
