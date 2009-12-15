@@ -67,6 +67,7 @@
       <param name="uploadHandlerUrl" value="http://example.com/upload.php?album_id=">
       <param name="maxWidth" value="800">
       <param name="maxHeight" value="600">
+      <param name="fileUploadLimit" value="100">
       <param name="fileExtensions" value="jpg,jpeg,gif,png">
       <param name="mayscript" value="yes">
       <param name="scriptable" value="true">
