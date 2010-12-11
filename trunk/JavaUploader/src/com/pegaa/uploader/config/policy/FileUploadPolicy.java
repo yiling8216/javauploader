@@ -38,7 +38,6 @@ public class FileUploadPolicy extends UploadPolicy{
      */
     @Override
     public String getPostURL(ListItem item, String targetID) {
-        //return null;
         /*
           Raz - This was missing hence why it fail to upload file over
         */
@@ -84,7 +83,6 @@ public class FileUploadPolicy extends UploadPolicy{
             /*
               Raz - This line dont work for some reason, so lets try the same code for image
             */
-            //for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT; i++){
             for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT && i<extensions.length; i++){
                 filter.addExtension(extensions[i]);
             }
