@@ -10,6 +10,8 @@ import com.pegaa.uploader.tools.SecurityStatusChecker;
 import com.pegaa.uploader.ui.AppletDeniedMessageContainer;
 import com.pegaa.uploader.ui.MainContainer;
 import javax.swing.JApplet;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 /**
  *
@@ -20,7 +22,7 @@ public class UploaderApplet extends JApplet {
     private AppletDeniedMessageContainer fallbackContainer = null;
     private DefaultConfigHolder configHolder = null;
     private MainContainer mainContainer = null;
-    
+
     @Override
     public void init() {
         //check if security dialog is accepted (if user clicked Run)
@@ -33,7 +35,7 @@ public class UploaderApplet extends JApplet {
         }
     }
 
-    
+
     public void initApplet()
     {
         if(configHolder == null){
@@ -48,25 +50,37 @@ public class UploaderApplet extends JApplet {
         System.out.println("stopping...");
         this.remove(mainContainer);
     }
-    
-     private void prepareUI(){ 
+
+     private void prepareUI() {
+         //try to activate Nimbus Look & Feel
+         try {
+             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                 if ("Nimbus".equals(info.getName())) {
+                     UIManager.setLookAndFeel(info.getClassName());
+                     break;
+                 }
+             }
+         } catch (Exception e) {
+            //do nothing use default layout
+         }
+
          this.setLayout(new java.awt.GridLayout(1, 0));
-         
+
          mainContainer = new MainContainer();
          mainContainer.setConfigHolder(this.configHolder);
          this.add(mainContainer);
      }
-    
+
      /**
       * If user does not accept security dialog this function will prepare
-      * a message 
+      * a message
       */
      private void prepareSecurityFallbackGUI()
      {
          this.setLayout(new java.awt.GridLayout(1, 0));
-          
+
          fallbackContainer = new AppletDeniedMessageContainer(this);
          this.add(fallbackContainer);
      }
-     
+
 }
