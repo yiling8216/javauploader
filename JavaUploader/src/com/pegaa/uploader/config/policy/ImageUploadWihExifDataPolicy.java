@@ -88,29 +88,7 @@ public class ImageUploadWihExifDataPolicy extends ImageUploadPolicy {
         StringBuffer buf = new StringBuffer();
         buf.append("&exif=");
                         
-        /*StringBuffer exifBuf = new StringBuffer();
-                
-        exifBuf.append(getURLEncodedString(exif.brightness));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.colorspace));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.compression));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.compressionlevel));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.exposurebias));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.exposuremode));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.exposureprogram));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.flash));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.focallength));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.marka));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.model));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.tarih));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.xcozunurluk));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.ycozunurluk));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.yukseklik));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.genislik));
-        exifBuf.append(splitChar).append(getURLEncodedString(exif.exposuretime));
-        */
-
         //For some reason the URLUTF8Encoder breaks on some files
-        //buf.append(URLUTF8Encoder.encode(exif.exifdata));
         buf.append(exif.exifdata);
         
         return buf.toString();		
