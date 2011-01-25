@@ -38,9 +38,9 @@ public class UploaderApplet extends JApplet {
 
     public void initApplet()
     {
-        if(configHolder == null){
-                configHolder = new DefaultConfigHolder();
-                configHolder.initParameters(this);
+        if (configHolder == null) {
+            configHolder = new DefaultConfigHolder();
+            configHolder.initParameters(this);
         }
         prepareUI();
     }
@@ -52,23 +52,34 @@ public class UploaderApplet extends JApplet {
     }
 
      private void prepareUI() {
-         //try to activate Nimbus Look & Feel
-         try {
-             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                 if ("Nimbus".equals(info.getName())) {
-                     UIManager.setLookAndFeel(info.getClassName());
-                     break;
-                 }
-             }
-         } catch (Exception e) {
-            //do nothing use default layout
-         }
-
+         
+         this.prepareLookAndFeel();
          this.setLayout(new java.awt.GridLayout(1, 0));
 
          mainContainer = new MainContainer();
          mainContainer.setConfigHolder(this.configHolder);
          this.add(mainContainer);
+     }
+
+     /**
+      * Manages the look and feel, if nimbus look and feel is configured
+      * tries to activate it
+      */
+     private void prepareLookAndFeel()
+     {
+         if ("nimbus".equals((String) this.configHolder.getObject("lookandfeel"))) {
+             //try to activate Nimbus Look & Feel
+             try {
+                 for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                     if ("Nimbus".equals(info.getName())) {
+                         UIManager.setLookAndFeel(info.getClassName());
+                         break;
+                     }
+                 }
+             } catch (Exception e) {
+                 //do nothing use default layout
+             }
+         }
      }
 
      /**

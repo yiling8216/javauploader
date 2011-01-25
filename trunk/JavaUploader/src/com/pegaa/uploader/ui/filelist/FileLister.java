@@ -139,7 +139,7 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
          {
             ListItem item = null;
             ListItemUI itemUI = new ListItemUI();
-            itemUI.setConfigHolder(configHolder);
+            itemUI.setConfigHolder(this.configHolder);
 
             int ind = this.selectedFileListModel.contains(files[i]);
 
