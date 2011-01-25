@@ -58,18 +58,18 @@ public class DefaultConfigHolder extends ConfigHolder {
     public void initTargetIdVariables(JApplet applet)
     {
         String currentTargetFolderDesc = null;
-        String idCountStr = applet.getParameter("idCount");
+        String idCountStr = applet.getParameter("idcount");
         int idCount = 0;
         int i = 0;
 
-        CustomLog.log("DefaultConfigHolder.idCount = " + idCountStr);
+        CustomLog.log("DefaultConfigHolder.idcount = " + idCountStr);
 
         try{
             idCount = Integer.parseInt(idCountStr);
 
-            this.map.put("global.selectedFolder", applet.getParameter("selectedFolder"));
+            this.map.put("global.selectedFolder", applet.getParameter("selected-folder"));
 
-            CustomLog.log("DefaultConfigHolder.selectedFolder = " + applet.getParameter("selectedFolder"));
+            CustomLog.log("DefaultConfigHolder.selected-folder = " + applet.getParameter("selected-folder"));
 
             ArrayList<TargetFolderData> idParameterMap = new ArrayList<TargetFolderData>(idCount);
 
@@ -100,7 +100,7 @@ public class DefaultConfigHolder extends ConfigHolder {
     public void initSessionVariables(JApplet applet)
     {
             String sessionString = null;
-            sessionString = applet.getParameter("sessionString");
+            sessionString = applet.getParameter("session-string");
             this.map.put("global.session-string", sessionString);
     }
 
@@ -128,7 +128,7 @@ public class DefaultConfigHolder extends ConfigHolder {
      */
     public void initUploadPolicy(JApplet applet)
     {
-            String policy = applet.getParameter("UploadPolicy");
+            String policy = applet.getParameter("upload-policy");
 
             if(policy != null && policy.equals("file"))
             {
@@ -160,7 +160,7 @@ public class DefaultConfigHolder extends ConfigHolder {
      */
     public void initFileFilterVariables(JApplet applet)
     {
-            this.map.put("filefilter.extensions", applet.getParameter("fileExtensions"));
+            this.map.put("filefilter.extensions", applet.getParameter("file-extensions"));
     }
 
     /**
@@ -169,8 +169,9 @@ public class DefaultConfigHolder extends ConfigHolder {
      */
     private void putImageBoundsToConfig(JApplet applet)
     {
-            this.map.put("image.maxwidth", applet.getParameter("maxWidth"));
-            this.map.put("image.maxheight", applet.getParameter("maxHeight"));
+            this.map.put("image.apply-compression", applet.getParameter("apply-compression"));
+            this.map.put("image.maxwidth", applet.getParameter("max-width"));
+            this.map.put("image.maxheight", applet.getParameter("max-height"));
     }
 
     public void initLang(JApplet applet)
@@ -181,7 +182,7 @@ public class DefaultConfigHolder extends ConfigHolder {
 
     public void initLog(JApplet applet)
     {
-            String logMode = applet.getParameter("logStatus");
+            String logMode = applet.getParameter("logging");
 
             if(logMode != null){
                if(logMode.equals("on")){
@@ -197,13 +198,13 @@ public class DefaultConfigHolder extends ConfigHolder {
      */
     private void initUploadHandlerUrl(JApplet applet)
     {
-        String uploadHandlerUrl = applet.getParameter("uploadHandlerUrl");
+        String uploadHandlerUrl = applet.getParameter("upload-handler-url");
         this.map.put("global.uploadHandlerUrl", uploadHandlerUrl);
     }
 
     private void initMaxUploadCount(JApplet applet)
     {
-        String fileUploadLimit = applet.getParameter("fileUploadLimit");
+        String fileUploadLimit = applet.getParameter("file-upload-limit");
         this.map.put("global.fileUploadLimit", fileUploadLimit);
     }
 

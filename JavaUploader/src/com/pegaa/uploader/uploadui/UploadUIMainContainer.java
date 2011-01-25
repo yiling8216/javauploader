@@ -134,7 +134,21 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
                 this.buttonStop.setEnabled(false);
                 this.buttonContinue.setEnabled(true);
                 this.buttonUploadAgain.setEnabled(true);
+                uploadProcessFinished();
             }
+        }
+    }
+
+    
+    /**
+     * Called when all uploads are finished
+     */
+    private void uploadProcessFinished() {
+        JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
+        try{
+            jso.call("JUP_eventhandler", new String[]{"uploadfinished"});
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -144,8 +158,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
      * function accepts two parameter first is action which are "gofolder" or
      * "again" and second is "target folder id"
      */
-    public void doAfterUploadProcess()
-    {
+    public void doAfterUploadProcess() {
         JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
         try{
             jso.call("JUP_eventhandler", new String[]{"gofolder", targetID});
@@ -154,8 +167,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
         }      
     }
     
-    private void uploadAgain()
-    {
+    private void uploadAgain() {
         JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
         try{
             jso.call("JUP_eventhandler", new String[]{"again", targetID});
@@ -173,7 +185,8 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
     }
 
     /**
-     *   
+     * called when one of the file upload finished
+     * 
      * @param status
      */
     public void uploadFinished(int status) {

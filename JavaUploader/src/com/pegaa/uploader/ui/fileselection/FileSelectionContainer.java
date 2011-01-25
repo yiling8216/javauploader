@@ -152,8 +152,8 @@ public class FileSelectionContainer extends javax.swing.JPanel implements Action
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
-        bottomToolbar1.setMinimumSize(new java.awt.Dimension(120, 43));
-        bottomToolbar1.setPreferredSize(new java.awt.Dimension(120, 100));
+        bottomToolbar1.setMinimumSize(new java.awt.Dimension(120, 30));
+        bottomToolbar1.setPreferredSize(new java.awt.Dimension(120, 40));
         add(bottomToolbar1, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
     
