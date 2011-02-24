@@ -24,22 +24,32 @@
 
 4. Insert the following html to embed the java applet in a html page.
 {{{
-    <script type="text/javascript">
-        //This script will be called after the upload is done and user click on continue
-        var album_id="";
+<script>
+var album_id= '_SELECTED_FOLDER_ID_'; /* target folder (album) */
+//This script will be called after the upload is done and user click on //continue
+function JUP_eventhandler(action, albumid)
+{
+  if(action == 'gofolder'){
+    if(album_no == 'null'){
+      location.href = '/albums'; /*  */
+    }else{
+      location.href = '/album/' + album_no; /* */
+    }
+  }else{
+    if(album_no == 'null'){
+      location.href = '/photo-upload/';
+    }else{
+      location.href = '/photo-upload/' + album_no;
+    }    
+  }
+}
 
-        function relocate(action, albumid){
-          if(action == 'gofolder'){
-            if(albumid==""){
-              location.href = './upload.php?do=redirect&album_id=';
-            }else{
-              location.href = './upload.php?do=redirect&album_id='+albumid;
-            }
-          }else{
-            location.href = './';
-          }
-        }
-    </script>
+//this is called if user does not accept security dialog
+function JUPDeniedHandler()
+{
+}
+</script>
+    
 
     <script type="text/javascript">
         //Dummy ie problem and solution...
