@@ -35,19 +35,19 @@ function JUP_eventhandler(action, albumid)
     }else{
       location.href = '/album/' + album_no; /* */
     }
-  }else{
+  }else if(action == 'again'){
     if(album_no == 'null'){
       location.href = '/photo-upload/';
     }else{
       location.href = '/photo-upload/' + album_no;
     }    
+  }else if(action == 'uploadfinished') {
+    //handle upload finish event
+  }else if(action == 'applet_denied') {
+    //this is called if user does not accept security dialog
   }
 }
 
-//this is called if user does not accept security dialog
-function JUPDeniedHandler()
-{
-}
 </script>
     
 
