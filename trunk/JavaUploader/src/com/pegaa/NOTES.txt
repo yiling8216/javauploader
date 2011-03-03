@@ -1,0 +1,23 @@
+
+
+#### Upload Policies ####
+
+** ImageUploadPolicy **
+- image upload
+- ability to rotate images
+- apply compression (always, not configurable)
+- max image size (configurable, can be disabled)
+- loses exif data
+- best for quick image uploads (ie social networks)
+
+** OriginalImageUploadPolicy **
+- image upload
+- no image rotation
+- no compression
+- no max image size
+- exif data is not lost
+- best for sites that needs the original picture (ie photo sharing communities)
+
+** FileUploadPolicy **
+- file upload
+- best for uploading files (images are files too)
