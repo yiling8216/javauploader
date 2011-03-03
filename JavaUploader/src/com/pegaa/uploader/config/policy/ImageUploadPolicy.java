@@ -50,7 +50,6 @@ public class ImageUploadPolicy extends UploadPolicy{
     public InputStreamInfo getInputStream(ListItem item) 
                            throws FileNotFoundException 
     {
-        
         BufferedImage image = null;
         ByteArrayOutputStream baos = null;
         ByteArrayInputStream bais = null;
@@ -130,35 +129,34 @@ public class ImageUploadPolicy extends UploadPolicy{
      * @param orgImage
      * @return
      */
-    private BufferedImage getScaledImageAndRotated(BufferedImage orgImage, int rotation, String rext)
-    {
+    private BufferedImage getScaledImageAndRotated(BufferedImage orgImage, int rotation, String rext) {
         int maxWidth = orgImage.getWidth();
         int maxHeight = orgImage.getHeight();
-        
-        String maxWidthStr = (String)this.configHolder.getObject("image.maxwidth");
-        String maxHeightStr = (String)this.configHolder.getObject("image.maxheight");
-        
-        if(maxWidthStr != null){
-            try{
+
+        String maxWidthStr = (String) this.configHolder.getObject("image.maxwidth");
+        String maxHeightStr = (String) this.configHolder.getObject("image.maxheight");
+
+        if (maxWidthStr != null) {
+            try {
                 maxWidth = Integer.parseInt(maxWidthStr);
-                if(maxWidth <= 0){
+                if (maxWidth <= 0) {
                     maxWidth = orgImage.getWidth();
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 maxWidth = orgImage.getWidth();
             }
         }
-        if(maxHeightStr != null){
-            try{
+        if (maxHeightStr != null) {
+            try {
                 maxHeight = Integer.parseInt(maxHeightStr);
-                if(maxHeight <= 0){
+                if (maxHeight <= 0) {
                     maxHeight = orgImage.getHeight();
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 maxHeight = orgImage.getHeight();
-            }            
+            }
         }
-        
+
         return ImageFuncs.getScaledAndRotatedImage(orgImage, maxWidth, maxHeight, rotation, false, rext);
     }
     
@@ -187,4 +185,11 @@ public class ImageUploadPolicy extends UploadPolicy{
         CustomLog.log("UploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
         return uploadHandlerUrl;
     }
+
+    @Override
+    public boolean isShowRotateButtons() {
+        return true;
+    }
+
+
 }

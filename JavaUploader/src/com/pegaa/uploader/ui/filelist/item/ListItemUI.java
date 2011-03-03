@@ -7,9 +7,11 @@
 package com.pegaa.uploader.ui.filelist.item;
 
 import com.pegaa.uploader.config.ConfigHolder;
+import com.pegaa.uploader.config.policy.UploadPolicy;
 import com.pegaa.uploader.event.ItemSelectionListener;
 import com.pegaa.uploader.event.ListItemListener;
 import com.pegaa.uploader.lang.Lang;
+import com.pegaa.uploader.tools.CustomLog;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -47,8 +49,22 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
     public void setConfigHolder(ConfigHolder configHolder)
     {
         this.configHolder = configHolder;
+        this.updateUI();
     }
-    
+
+    /*
+     * If rotation is disable we must hide the panel that holds
+     * rotation buttons.
+     */
+    public void updateButtonPanel()
+    {
+        super.updateUI();
+        UploadPolicy up = (UploadPolicy)this.configHolder.getObject("global.policy");
+        if(!up.isShowRotateButtons()) {
+            panelButtonHolder.setVisible(false);
+        }
+    }
+
     /**
      *  Sets the internal item (model)
      * 
@@ -198,23 +214,6 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
         this.rotateLeft.setVisible(b);
         this.rotateRight.setVisible(b);
     }
-    
-    /**
-     *    Custom paint method to draw image on to the background.
-     * @param g
-     */
-    /*
-    @Override
-    public void paint(java.awt.Graphics g){
-        if(this.jCheckBox1.isSelected()){
-            g.setColor(LIGHT_GRAY);
-        }else{
-            g.setColor(Color.WHITE);
-        }
-        g.fillRect(0, 0,this.getWidth(), this.getHeight());
-        super.paintChildren(g);
-    }
-    */
     
     /** This method is called from within the constructor to
      * initialize the form.

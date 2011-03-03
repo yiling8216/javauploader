@@ -26,7 +26,7 @@ public class OriginalImageUploadPolicy extends FileUploadPolicy {
     public String getPostURL(ListItem item, String targetID) {
         String uploadHandlerUrl = (String)this.configHolder.getObject("global.uploadHandlerUrl");
         uploadHandlerUrl += targetID;
-        CustomLog.log("UploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
+        CustomLog.log("OriginalImageUploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
         return uploadHandlerUrl;
     }
 
@@ -57,4 +57,15 @@ public class OriginalImageUploadPolicy extends FileUploadPolicy {
         return POLICY_TYPE_IMAGE;
     }
 
+    /**
+     * If we are trying to upload original image we must not
+     * allow user to rotate image
+     * 
+     * @return
+     */
+    @Override
+    public boolean isShowRotateButtons()
+    {
+        return false;
+    }
 }
