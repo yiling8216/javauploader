@@ -21,3 +21,8 @@
 ** FileUploadPolicy **
 - file upload
 - best for uploading files (images are files too)
+
+
+### PARAMETERS ###
+ 
+- logging  => enable/disable(or no parameter entry)
