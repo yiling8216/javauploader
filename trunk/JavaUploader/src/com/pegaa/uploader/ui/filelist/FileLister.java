@@ -143,10 +143,9 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
 
             int ind = this.selectedFileListModel.contains(files[i]);
 
-            if(ind == -1){
-                //item = new ImageItem(this.configHolder, files[i]);
+            if(ind == -1) {
                 item = this.createListItem(files[i]);
-            }else{
+            } else {
                 item = this.selectedFileListModel.getItem(ind);
                 itemUI.setSelected(true);
             }

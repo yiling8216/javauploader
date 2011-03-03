@@ -93,4 +93,16 @@ public abstract class UploadPolicy {
     {
         return 0;
     }
+
+    /**
+     * to show or hide rotate buttons, if original image upload or file
+     * upload is active we must hide rotation buttons since they have no
+     * affect
+     * 
+     * @return
+     */
+    public boolean isShowRotateButtons()
+    {
+        return false;
+    }
 }

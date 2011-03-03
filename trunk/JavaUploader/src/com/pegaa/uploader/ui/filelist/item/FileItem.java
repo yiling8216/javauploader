@@ -13,7 +13,7 @@ import java.io.File;
  * @author tayfun
  */
 public class FileItem extends ListItem{
-    
+
     public FileItem(ConfigHolder configHolder, File file)
     {
         super(configHolder, file);
