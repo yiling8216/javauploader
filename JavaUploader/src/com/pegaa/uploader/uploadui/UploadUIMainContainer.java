@@ -3,7 +3,6 @@
  *
  * Created on 12 Haziran 2008 Perşembe, 21:30
  */
-
 package com.pegaa.uploader.uploadui;
 
 import com.pegaa.uploader.common.CustomBoxLayout;
@@ -20,75 +19,67 @@ import netscape.javascript.JSObject;
  * 
  * @author  tayfun
  */
-public class UploadUIMainContainer extends javax.swing.JPanel implements FileUploadListener{
-    
+public class UploadUIMainContainer extends javax.swing.JPanel implements FileUploadListener {
+
     private ConfigHolder configHolder = null;
     private SelectedFileListModel model = null;
-    
     /**/
     private ArrayList<UploadItemUI> uploadItemUIs = null;
     private int curIndex = 0;
     private String targetID = null;
-    
     /* cancel upload flag */
     private boolean cancelUpload = false;
     /* current uplaod item to abort it */
     private UploadItemUI activeItem = null;
-    
+
     /** Creates new form UploadMainContainer */
     public UploadUIMainContainer() {
         initComponents();
         uploadItemUIs = new ArrayList<UploadItemUI>(2);
     }
-    
-    public void setConfigHolder(ConfigHolder configHolder)
-    {
+
+    public void setConfigHolder(ConfigHolder configHolder) {
         this.configHolder = configHolder;
         updateStrings();
     }
-    
+
     /**
      * Sets model of this component, model holds informations about all selected
      * file items.
      * 
      * @param model
      */
-    public void setModel(SelectedFileListModel model)
-    {
+    public void setModel(SelectedFileListModel model) {
         this.model = model;
         this.updateComponents();
     }
-    
-    private void updateStrings()
-    {
-        Lang lang = (Lang)this.configHolder.getObject("global.lang");
-        this.buttonStop.setText((String)lang.get("uploaderui.stop"));
-        this.buttonContinue.setText((String)lang.get("uploaderui.continue"));
-        this.buttonUploadAgain.setText((String)lang.get("uploaderui.uploadagain"));
+
+    private void updateStrings() {
+        Lang lang = (Lang) this.configHolder.getObject("global.lang");
+        this.buttonStop.setText((String) lang.get("uploaderui.stop"));
+        this.buttonContinue.setText((String) lang.get("uploaderui.continue"));
+        this.buttonUploadAgain.setText((String) lang.get("uploaderui.uploadagain"));
     }
-    
+
     /**
      * Sets the selected folder ID.
      * 
      * @param targetID
      */
-    public void setTargetFolderID(String targetID)
-    {
+    public void setTargetFolderID(String targetID) {
         this.targetID = targetID;
     }
-    
+
     /**
      *  creates itemUIs, which show items' information and upload status.
      * UploadItemUIs created for every file items.
      */
-    private void updateComponents()
-    {
-        int len = this.model.getSize();      
+    private void updateComponents() {
+        int len = this.model.getSize();
         CustomBoxLayout layout = new CustomBoxLayout();
         this.jPanel2.setLayout(layout);
-        
-        for(int i=0; i<len; i++)
-        {           
+
+        for (int i = 0; i < len; i++) {
             UploadItemUI item = new UploadItemUI();
             item.setConfigHolder(configHolder);
             item.setItem(this.model.getItem(i));
@@ -97,40 +88,37 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
              * 
              */
             item.addFileUploadListener(this);
-           
+
             this.jPanel2.add(item);
             uploadItemUIs.add(item);
-            
+
         }
         this.jPanel2.revalidate();
         this.jPanel2.repaint();
     }
-    
-    public void startUpload()
-    {
+
+    public void startUpload() {
         this.buttonContinue.setEnabled(false);
         this.buttonUploadAgain.setEnabled(false);
         curIndex = 0;
         this.runNext();
     }
-    
+
     /**
      *  Starts next file upload
      * 
      */
-    private void runNext()
-    {      
-        if(cancelUpload != true && curIndex < this.uploadItemUIs.size())
-        {
+    private void runNext() {
+        if (cancelUpload != true && curIndex < this.uploadItemUIs.size()) {
             CustomLog.log("UploadUIMainContainer.runNext targetID=" + targetID);
-            
+
             UploadItemUI item = this.uploadItemUIs.get(curIndex);
             item.setTargetFolderID(targetID);
             activeItem = item;
             item.startUpload();
             curIndex++;
-        }else{
-            if(curIndex == this.uploadItemUIs.size() || cancelUpload == true){
+        } else {
+            if (curIndex == this.uploadItemUIs.size() || cancelUpload == true) {
                 this.buttonStop.setEnabled(false);
                 this.buttonContinue.setEnabled(true);
                 this.buttonUploadAgain.setEnabled(true);
@@ -139,15 +127,16 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
         }
     }
 
-    
     /**
-     * Called when all uploads are finished
+     * Executed when all uploads are finished so if you want to do something
+     * when all files are uplaoded you can do it in javascript (no data about
+     * file uploads is passed !)
      */
     private void uploadProcessFinished() {
-        JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
-        try{
+        JSObject jso = (JSObject) this.configHolder.getObject("global.jso");
+        try {
             jso.call("JUP_eventhandler", new String[]{"uploadfinished"});
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -159,29 +148,27 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
      * "again" and second is "target folder id"
      */
     public void doAfterUploadProcess() {
-        JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
-        try{
+        JSObject jso = (JSObject) this.configHolder.getObject("global.jso");
+        try {
             jso.call("JUP_eventhandler", new String[]{"gofolder", targetID});
-        }catch(Exception e){
-            e.printStackTrace(); 
-        }      
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
+
     private void uploadAgain() {
-        JSObject jso = (JSObject)this.configHolder.getObject("global.jso");
-        try{
+        JSObject jso = (JSObject) this.configHolder.getObject("global.jso");
+        try {
             jso.call("JUP_eventhandler", new String[]{"again", targetID});
-        }catch(Exception e){
-            e.printStackTrace(); 
-        }  
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
+
     public void uploadStarted(long fileSize) {
-        
     }
 
     public void fileReaded(int readed) {
-        
     }
 
     /**
@@ -192,7 +179,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
     public void uploadFinished(int status) {
         this.runNext();
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -244,7 +231,7 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
 
     private void buttonStopMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonStopMouseClicked
         this.cancelUpload = true;
-        if(activeItem != null){
+        if (activeItem != null) {
             activeItem.cancelUpload();
         }
     }//GEN-LAST:event_buttonStopMouseClicked
@@ -254,10 +241,8 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
     }//GEN-LAST:event_buttonContinueMouseClicked
 
     private void buttonUploadAgainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonUploadAgainMouseClicked
-       uploadAgain();
+        uploadAgain();
     }//GEN-LAST:event_buttonUploadAgainMouseClicked
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonContinue;
     private javax.swing.JButton buttonStop;
@@ -266,7 +251,4 @@ public class UploadUIMainContainer extends javax.swing.JPanel implements FileUpl
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
-
-    
 }
