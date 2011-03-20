@@ -1,1 +1,5 @@
 
+
+### CHANGES VERSION 2.0  ####
+- Dropped Image upload with exif data policy (it looked pointless)
+- 

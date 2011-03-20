@@ -3,11 +3,13 @@
  *
  * Created on 20 Mart 2009 Cuma, 22:56
  */
-
 package com.pegaa.uploader.ui;
 
+import com.pegaa.uploader.config.ConfigHolder;
+import com.pegaa.uploader.config.DefaultConfigHolder;
 import com.pegaa.uploader.lang.Lang;
 import javax.swing.JApplet;
+import netscape.javascript.JSObject;
 
 /**
  * If user does not accept security dialog we fall back to this 
@@ -16,23 +18,41 @@ import javax.swing.JApplet;
  * @author  tayfun
  */
 public class AppletDeniedMessageContainer extends javax.swing.JPanel {
-    
+
     private JApplet applet;
-    
+    private ConfigHolder configHolder;
+
     /** Creates new form AppletDeniedMessageContainer */
     public AppletDeniedMessageContainer(JApplet applet) {
         initComponents();
         //
         this.applet = applet;
-        initLang();
+
     }
-    
-    private void initLang()
-    {
-        Lang lang = new Lang(applet);
+
+    public void setConfigHolder(DefaultConfigHolder configHolder) {
+        this.configHolder = configHolder;
+        initLang();
+        raiseAppletDeniedEvent();
+    }
+
+    private void initLang() {
+        Lang lang = (Lang) this.configHolder.getObject("global.lang");
         this.messageLabel.setText(lang.get("fallbackgui.message"));
     }
-    
+
+    /**
+     * Executed to indicate javascript event handler
+     */
+    private void raiseAppletDeniedEvent() {
+        JSObject jso = (JSObject) this.configHolder.getObject("global.jso");
+        try {
+            jso.call("JUP_eventhandler", new String[]{"appletdenied"});
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -49,10 +69,7 @@ public class AppletDeniedMessageContainer extends javax.swing.JPanel {
         messageLabel.setPreferredSize(new java.awt.Dimension(38, 50));
         add(messageLabel, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel messageLabel;
     // End of variables declaration//GEN-END:variables
-    
 }

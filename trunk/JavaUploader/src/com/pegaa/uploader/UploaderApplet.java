@@ -91,6 +91,7 @@ public class UploaderApplet extends JApplet {
          this.setLayout(new java.awt.GridLayout(1, 0));
 
          fallbackContainer = new AppletDeniedMessageContainer(this);
+         fallbackContainer.setConfigHolder(configHolder);
          this.add(fallbackContainer);
      }
 

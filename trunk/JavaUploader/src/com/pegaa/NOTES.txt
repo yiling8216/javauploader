@@ -26,3 +26,6 @@
 ### PARAMETERS ###
  
 - logging  => enable/disable(or no parameter entry)
+
+### JAVASCRIPT EVENT HANDLER ###
+ JUP_eventhandler : the name of the handler function
