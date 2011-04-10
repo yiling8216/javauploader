@@ -39,5 +39,8 @@
 - file-upload-limit => max file limit if we want to have a limit for files
 - lang => lang id of the language
 
+* postUrl is constructed by appending selected id to upload-handler-url parameter
+  from codes : uploadHandlerUrl += targetID;
+
 ### JAVASCRIPT EVENT HANDLER ###
  JUP_eventhandler : the name of the handler function
