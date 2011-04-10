@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.pegaa.uploader.config.policy;
 
 import com.pegaa.uploader.config.ConfigHolder;
@@ -15,21 +14,19 @@ import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-
 /**
  *
  * @author tayfun
  */
-public class FileUploadPolicy extends UploadPolicy{
+public class FileUploadPolicy extends UploadPolicy {
 
     /* FileUpload policy type flag */
     public static final int POLICY_TYPE_FILE = 2;
-    
-    public FileUploadPolicy(ConfigHolder configHolder)
-    { 
-         super(configHolder);
+
+    public FileUploadPolicy(ConfigHolder configHolder) {
+        super(configHolder);
     }
-    
+
     /**
      * 
      * 
@@ -39,9 +36,9 @@ public class FileUploadPolicy extends UploadPolicy{
     @Override
     public String getPostURL(ListItem item, String targetID) {
         /*
-          Raz - This was missing hence why it fail to upload file over
-        */
-        String uploadHandlerUrl = (String)this.configHolder.getObject("global.uploadHandlerUrl");
+        Raz - This was missing hence why it fail to upload file over
+         */
+        String uploadHandlerUrl = (String) this.configHolder.getObject("global.uploadHandlerUrl");
         uploadHandlerUrl += targetID;
         CustomLog.log("UploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
         return uploadHandlerUrl;
@@ -56,10 +53,10 @@ public class FileUploadPolicy extends UploadPolicy{
      * @throws java.io.FileNotFoundException
      */
     @Override
-    public InputStreamInfo getInputStream(ListItem item) throws FileNotFoundException{
+    public InputStreamInfo getInputStream(ListItem item) throws FileNotFoundException {
         FileInputStream fis = null;
         InputStreamInfo info = null;
-        
+
         try {
             fis = new FileInputStream(item.getFile());
             info = new InputStreamInfo(fis, item.getFile().length());
@@ -71,29 +68,28 @@ public class FileUploadPolicy extends UploadPolicy{
 
     @Override
     public FileFilter getFileFilter() {
-        if(filter != null){
-             return filter;
+        if (filter != null) {
+            return filter;
         }
         filter = new CustomFileFilter();
-        String fileExtensions = (String)this.configHolder.getObject("filefilter.extensions");
-        
+        String fileExtensions = (String) this.configHolder.getObject("filefilter.extensions");
+
         //if any extension given we use them
-        if(fileExtensions != null){
+        if (fileExtensions != null) {
             String[] extensions = fileExtensions.split(",");
             /*
-              Raz - This line dont work for some reason, so lets try the same code for image
-            */
-            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT && i<extensions.length; i++){
+            Raz - This line dont work for some reason, so lets try the same code for image
+             */
+            for (int i = 0; i < DefaultParameters.MAX_EXTENSION_COUNT && i < extensions.length; i++) {
                 filter.addExtension(extensions[i]);
             }
-         }
-        
+        }
+
         return filter;
     }
-    
+
     @Override
-    public int getPolicyType()
-    {
+    public int getPolicyType() {
         return POLICY_TYPE_FILE;
-    } 
+    }
 }
