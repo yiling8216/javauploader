@@ -19,7 +19,7 @@ public class OriginalImageUploadPolicy extends FileUploadPolicy {
         super(configHolder);
     }
 
-     /**
+    /**
      *
      *
      * @param targetID
@@ -27,7 +27,7 @@ public class OriginalImageUploadPolicy extends FileUploadPolicy {
      */
     @Override
     public String getPostURL(ListItem item, String targetID) {
-        String uploadHandlerUrl = (String)this.configHolder.getObject("global.uploadHandlerUrl");
+        String uploadHandlerUrl = (String) this.configHolder.getObject("global.uploadHandlerUrl");
         uploadHandlerUrl += targetID;
         CustomLog.log("OriginalImageUploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
         return uploadHandlerUrl;
@@ -41,7 +41,7 @@ public class OriginalImageUploadPolicy extends FileUploadPolicy {
      * @throws java.io.FileNotFoundException
      */
     @Override
-    public InputStreamInfo getInputStream(ListItem item) throws FileNotFoundException{
+    public InputStreamInfo getInputStream(ListItem item) throws FileNotFoundException {
         FileInputStream fis = null;
         InputStreamInfo info = null;
 
@@ -61,33 +61,31 @@ public class OriginalImageUploadPolicy extends FileUploadPolicy {
      * @return
      */
     @Override
-    public FileFilter getFileFilter()
-    {
-         if(filter != null){
-             return filter;
-         }
+    public FileFilter getFileFilter() {
+        if (filter != null) {
+            return filter;
+        }
 
-         filter = new CustomFileFilter();
-         String fileExtensions = (String)this.configHolder.getObject("filefilter.extensions");
+        filter = new CustomFileFilter();
+        String fileExtensions = (String) this.configHolder.getObject("filefilter.extensions");
 
-         if(fileExtensions != null){
+        if (fileExtensions != null) {
 
             String[] extensions = fileExtensions.split(",");
-            for(int i=0; i < DefaultParameters.MAX_EXTENSION_COUNT && i<extensions.length; i++){
+            for (int i = 0; i < DefaultParameters.MAX_EXTENSION_COUNT && i < extensions.length; i++) {
                 filter.addExtension(extensions[i]);
             }
 
-         }else{
+        } else {
             filter.addExtension("jpg");
             filter.addExtension("jpeg");
-         }
+        }
 
-         return filter;
+        return filter;
     }
 
     @Override
-    public int getPolicyType()
-    {
+    public int getPolicyType() {
         return POLICY_TYPE_IMAGE;
     }
 
@@ -98,8 +96,7 @@ public class OriginalImageUploadPolicy extends FileUploadPolicy {
      * @return
      */
     @Override
-    public boolean isShowRotateButtons()
-    {
+    public boolean isShowRotateButtons() {
         return false;
     }
 }

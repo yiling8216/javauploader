@@ -82,6 +82,7 @@ public class DefaultConfigHolder extends ConfigHolder {
             this.map.put("global.idMap", idParameterMap);
 
         } catch (NumberFormatException e) {
+            CustomLog.log("idcount is not a number !!!!");
             return;
         }
     }
@@ -138,10 +139,6 @@ public class DefaultConfigHolder extends ConfigHolder {
             this.map.put("global.policy", iup);
             putImagePolicyRelatedParamsToConfig(applet);
         }
-
-        //TEST
-        OriginalImageUploadPolicy oiup = new OriginalImageUploadPolicy(this);
-        this.map.put("global.policy", oiup);
     }
 
     /**
@@ -169,9 +166,6 @@ public class DefaultConfigHolder extends ConfigHolder {
 
     public void initLogging(JApplet applet) {
         String logging = applet.getParameter("logging");
-
-        //TEST
-        logging = "enable";
 
         if (logging != null) {
             if (logging.equals("enable")) {

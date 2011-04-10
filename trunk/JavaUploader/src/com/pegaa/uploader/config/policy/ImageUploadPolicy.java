@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.pegaa.uploader.config.policy;
 
 import com.pegaa.uploader.config.ConfigHolder;
@@ -22,23 +21,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 /**
  * This class is the default policy which treats all items as images, so we can
  * apply compression, make items resized before uploading.
  * 
  * @author tayfun
  */
-public class ImageUploadPolicy extends UploadPolicy{
+public class ImageUploadPolicy extends UploadPolicy {
 
     /* ImageUpload  policy type flag */
     public static final int POLICY_TYPE_IMG = 1;
-    
-    public ImageUploadPolicy(ConfigHolder configHolder)
-    {
-        super (configHolder);
+
+    public ImageUploadPolicy(ConfigHolder configHolder) {
+        super(configHolder);
     }
-    
+
     /**
      *   Creates an InputStream object and returns it. Before creating an 
      * InputStream checks if max image size given, image compression quality 
@@ -47,16 +44,15 @@ public class ImageUploadPolicy extends UploadPolicy{
      * @return
      */
     @Override
-    public InputStreamInfo getInputStream(ListItem item) 
-                           throws FileNotFoundException 
-    {
+    public InputStreamInfo getInputStream(ListItem item)
+            throws FileNotFoundException {
         BufferedImage image = null;
         ByteArrayOutputStream baos = null;
         ByteArrayInputStream bais = null;
         InputStreamInfo info = null;
-        
-        ImageItem imgItem = (ImageItem)item;
-        
+
+        ImageItem imgItem = (ImageItem) item;
+
         try {
             image = javax.imageio.ImageIO.read(item.getFile());
 
@@ -65,23 +61,23 @@ public class ImageUploadPolicy extends UploadPolicy{
             //in com.pegaa.uploader.tools.ImageFuncs
             File rtmpf = item.getFile();
             String rfilename = rtmpf.getName();
-            String rext = rfilename.substring(rfilename.lastIndexOf('.')+1, rfilename.length());
+            String rext = rfilename.substring(rfilename.lastIndexOf('.') + 1, rfilename.length());
 
-            image = getScaledImageAndRotated(image, imgItem.getRotationStatus(),rext);           
+            image = getScaledImageAndRotated(image, imgItem.getRotationStatus(), rext);
 
             baos = ImageFuncs.createImageOutputStream(image, rext);
-             
+
             byte[] resultImageAsRawBytes = baos.toByteArray();
             bais = new ByteArrayInputStream(resultImageAsRawBytes, 0, resultImageAsRawBytes.length);
-            
-            info = new InputStreamInfo((InputStream)bais, resultImageAsRawBytes.length);
+
+            info = new InputStreamInfo((InputStream) bais, resultImageAsRawBytes.length);
             /**/
             return info;
         } catch (Exception ex) {
-            ex.printStackTrace();  
+            ex.printStackTrace();
             return null;
-        }finally{
-            if(baos != null){
+        } finally {
+            if (baos != null) {
                 try {
                     baos.close();
                 } catch (IOException ex) {
@@ -97,31 +93,29 @@ public class ImageUploadPolicy extends UploadPolicy{
      * @return
      */
     @Override
-    public FileFilter getFileFilter() 
-    {        
-         if(filter != null){
-             return filter;
-         }
-         
-         filter = new CustomFileFilter();
-         String fileExtensions = (String)this.configHolder.getObject("filefilter.extensions");
-                  
-         if(fileExtensions != null){
-             
+    public FileFilter getFileFilter() {
+        if (filter != null) {
+            return filter;
+        }
+
+        filter = new CustomFileFilter();
+        String fileExtensions = (String) this.configHolder.getObject("filefilter.extensions");
+
+        if (fileExtensions != null) {
+
             String[] extensions = fileExtensions.split(",");
-            for(int i=0; i<DefaultParameters.MAX_EXTENSION_COUNT && i<extensions.length; i++){
+            for (int i = 0; i < DefaultParameters.MAX_EXTENSION_COUNT && i < extensions.length; i++) {
                 filter.addExtension(extensions[i]);
             }
-            
-         }else{
+
+        } else {
             filter.addExtension("jpg");
             filter.addExtension("jpeg");
-         }
-         
-         return filter;
-    } 
-    
-   
+        }
+
+        return filter;
+    }
+
     /**
      *      Returns rotated and scaled (according to parameters) image of given
      * BufferedImage
@@ -159,18 +153,17 @@ public class ImageUploadPolicy extends UploadPolicy{
 
         return ImageFuncs.getScaledAndRotatedImage(orgImage, maxWidth, maxHeight, rotation, false, rext);
     }
-    
+
     /**
      * 
      * @return
      */
     @Override
-    public int getPolicyType()
-    {
+    public int getPolicyType() {
         return POLICY_TYPE_IMG;
-    }   
-    
-     /**
+    }
+
+    /**
      * Returns full target upload URL, this function is called from
      * Sender.java's run method.
      * 
@@ -178,18 +171,22 @@ public class ImageUploadPolicy extends UploadPolicy{
      * @return
      */
     @Override
-    public String getPostURL(ListItem item, String targetID)
-    {
-        String uploadHandlerUrl = (String)this.configHolder.getObject("global.uploadHandlerUrl");
+    public String getPostURL(ListItem item, String targetID) {
+        String uploadHandlerUrl = (String) this.configHolder.getObject("global.uploadHandlerUrl");
         uploadHandlerUrl += targetID;
         CustomLog.log("UploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
         return uploadHandlerUrl;
     }
 
+    /**
+     * This parameter is intended for original image upload policy,
+     * because in original image policy rotation is not applied so that
+     * rotation buttons are useless. This configuration makes them
+     * visible or hidden.
+     * @return Visibility of buttons
+     */
     @Override
     public boolean isShowRotateButtons() {
         return true;
     }
-
-
 }

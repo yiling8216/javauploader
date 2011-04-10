@@ -45,8 +45,7 @@ public class CustomBoxLayout implements LayoutManager{
                 return new Dimension(calcWidth + insets.left + insets.right, calcHeight + insets.top + insets.bottom);
             }else{
                 return new Dimension(200, 200);    
-            }  
-            
+            }
         }
     }
 

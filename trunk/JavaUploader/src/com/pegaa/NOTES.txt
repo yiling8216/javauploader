@@ -26,6 +26,18 @@
 ### PARAMETERS ###
  
 - logging  => enable/disable(or no parameter entry)
+- idcount => count of ids (album/folder ids)
+- selected-folder => active folder id (folder to be uploaded)
+- desc-XXX => folder list with "name:id" format
+- session-string => session string (like PHPSESSID=AGGSHHSXXX)
+- upload-policy => selected upload policy
+- file-extensions => the extensions of files seperated with "," char
+- max-width => maximum width of image if we want images to have a max size
+- max-height => maximum height of image if we want images to have a max size
+- logging => log setting (enable enables log otherwise it is disabled)
+- upload-handler-url => the url of the upload handler
+- file-upload-limit => max file limit if we want to have a limit for files
+- lang => lang id of the language
 
 ### JAVASCRIPT EVENT HANDLER ###
  JUP_eventhandler : the name of the handler function
