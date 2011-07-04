@@ -64,9 +64,9 @@ public class DefaultConfigHolder extends ConfigHolder {
         try {
             idCount = Integer.parseInt(idCountStr);
 
-            this.map.put("global.selectedFolder", applet.getParameter("selected-folder"));
+            this.map.put("global.selectedFolder", applet.getParameter("selected-album"));
 
-            CustomLog.log("DefaultConfigHolder.selected-folder = " + applet.getParameter("selected-folder"));
+            CustomLog.log("DefaultConfigHolder.selected-folder = " + applet.getParameter("selected-album"));
 
             ArrayList<TargetFolderData> idParameterMap = new ArrayList<TargetFolderData>(idCount);
 
@@ -123,6 +123,8 @@ public class DefaultConfigHolder extends ConfigHolder {
      */
     public void initUploadPolicy(JApplet applet) {
         String policy = applet.getParameter("upload-policy");
+
+        CustomLog.log("selected policy is :" + policy);
 
         if (policy != null && policy.equals("file")) {
             FileUploadPolicy fup = new FileUploadPolicy(this);
