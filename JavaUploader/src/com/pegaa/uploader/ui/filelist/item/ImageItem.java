@@ -6,17 +6,11 @@
 package com.pegaa.uploader.ui.filelist.item;
 
 import com.pegaa.uploader.config.ConfigHolder;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import com.pegaa.uploader.tools.ImageFuncs;
 import com.pegaa.uploader.tools.JpegExif;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Iterator;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReadParam;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
 
 /**
  *
@@ -125,23 +119,6 @@ public class ImageItem extends ListItem{
                 //fix-add
                 File file = new File(rfilename);
                 image = ImageIO.read(file);
-
-                /*Iterator readers = ImageIO.getImageReadersBySuffix(_rext);
-
-                ImageReader reader = (ImageReader)readers.next();
-                ImageInputStream iis = ImageIO.createImageInputStream(this.file);
-                reader.setInput(iis);
-               System.out.println("Fichero descargado");
-
-                if(reader.hasThumbnails(0)){
-                    image =  reader.readThumbnail(0, 0);
-                }else{
-                    ImageReadParam param = reader.getDefaultReadParam();
-                    if(reader.getWidth(0) > 1000 && reader.getHeight(0) > 1000){
-                       param.setSourceSubsampling(10, 10, 0 , 0);
-                    }
-                    image = reader.read(0, param);
-                }*/
 
         }catch(Exception e){
                 e.printStackTrace();
