@@ -29,7 +29,7 @@ public class OriginalImageUploadPolicy extends FileUploadPolicy {
     public String getPostURL(ListItem item, String targetID) {
         String uploadHandlerUrl = (String) this.configHolder.getObject("global.uploadHandlerUrl");
         uploadHandlerUrl += targetID;
-        CustomLog.log("OriginalImageUploadPolicy.getPostURL.uploadHandlerUrl = " + uploadHandlerUrl);
+        CustomLog.log("File will be uploaded to : " + uploadHandlerUrl);
         return uploadHandlerUrl;
     }
 
