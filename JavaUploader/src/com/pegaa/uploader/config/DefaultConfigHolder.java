@@ -7,7 +7,6 @@ package com.pegaa.uploader.config;
 import com.pegaa.uploader.common.TargetFolderData;
 import com.pegaa.uploader.config.policy.FileUploadPolicy;
 import com.pegaa.uploader.config.policy.ImageUploadPolicy;
-import com.pegaa.uploader.config.policy.ImageUploadWihExifDataPolicy;
 import com.pegaa.uploader.config.policy.OriginalImageUploadPolicy;
 import com.pegaa.uploader.lang.Lang;
 import com.pegaa.uploader.tools.CustomLog;
@@ -129,10 +128,6 @@ public class DefaultConfigHolder extends ConfigHolder {
         if (policy != null && policy.equals("file")) {
             FileUploadPolicy fup = new FileUploadPolicy(this);
             this.map.put("global.policy", fup);
-        } else if (policy != null && policy.equals("image-with-exif")) {
-            ImageUploadWihExifDataPolicy iedp = new ImageUploadWihExifDataPolicy(this);
-            this.map.put("global.policy", iedp);
-            putImagePolicyRelatedParamsToConfig(applet);
         } else if (policy != null && policy.equals("original-image")) {
             OriginalImageUploadPolicy oiup = new OriginalImageUploadPolicy(this);
             this.map.put("global.policy", oiup);
@@ -141,6 +136,13 @@ public class DefaultConfigHolder extends ConfigHolder {
             this.map.put("global.policy", iup);
             putImagePolicyRelatedParamsToConfig(applet);
         }
+        /*
+         //REMOVED FROM V2 - please use original image upload
+         else if (policy != null && policy.equals("image-with-exif")) {
+            ImageUploadWihExifDataPolicy iedp = new ImageUploadWihExifDataPolicy(this);
+            this.map.put("global.policy", iedp);
+            putImagePolicyRelatedParamsToConfig(applet);
+        } */ 
     }
 
     /**

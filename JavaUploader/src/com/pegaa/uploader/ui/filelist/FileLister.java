@@ -16,6 +16,8 @@ import com.pegaa.uploader.ui.filelist.item.ImageItem;
 import com.pegaa.uploader.ui.filelist.item.ListItem;
 import com.pegaa.uploader.ui.filelist.item.ListItemUI;
 import com.pegaa.uploader.ui.selectedfilelist.SelectedFileListModel;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
@@ -155,7 +157,6 @@ public class FileLister implements ItemSelectionListener, SelectedFileListListen
 
             this.fileListItemUIs.add(itemUI);
             this.notifyListItemAdded(itemUI);
-
          }
 
          if(len > 0 && policy.getPolicyType() == ImageUploadPolicy.POLICY_TYPE_IMG)
