@@ -117,8 +117,7 @@ public class ImageItem extends ListItem{
                 String rfilename = this.file.toString();
                 _rext = rfilename.substring(rfilename.lastIndexOf('.')+1, rfilename.length());
                 //fix-add
-                File file = new File(rfilename);
-                image = ImageIO.read(file);
+                image = ImageIO.read(new File(rfilename));
 
         }catch(Exception e){
                 e.printStackTrace();
