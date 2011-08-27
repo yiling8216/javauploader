@@ -3,70 +3,75 @@
  *
  * Created on 14 Haziran 2008 Cumartesi, 21:07
  */
-
 package com.pegaa.uploader.ui.selectedfilelist;
 
 import com.pegaa.uploader.common.CustomGridLayout;
 import com.pegaa.uploader.ui.fileselection.EmptyListMessage;
-import com.pegaa.uploader.ui.filelist.*;
 import com.pegaa.uploader.common.StackLayout;
 import com.pegaa.uploader.config.ConfigHolder;
 import com.pegaa.uploader.lang.Lang;
 import com.pegaa.uploader.ui.filelist.item.ListItemUI;
 import java.awt.event.ItemEvent;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
  *
  * @author  tayfun
  */
-public class SelectedFileList extends javax.swing.JPanel implements java.awt.event.ItemListener{
-    
-    private ConfigHolder configHolder = null;   
+public class SelectedFileList extends javax.swing.JPanel implements java.awt.event.ItemListener {
+
+    private ConfigHolder configHolder = null;
     private StackLayout layout = null;
     private EmptyListMessage emptyList = null;
     private JPanel selectedFileList = null;
     private SelectedFileLister selectedFileLister = null;
-    private ArrayList<ListItemUI> listItemUIs = null;
-    
+    private DndHandler dndHandler = null;
+
     /** Creates new form SelectedFileListDisplayer */
     public SelectedFileList() {
         initComponents();
         updateComponents();
     }
-    
-    public void setConfigHolder(ConfigHolder configHolder)
-    {
-        this.listItemUIs = new ArrayList<ListItemUI>(20);
+
+    public void setConfigHolder(ConfigHolder configHolder) {
+        //this.listItemUIs = new ArrayList<ListItemUI>(20);
         this.configHolder = configHolder;
         updateStrings();
+        initDND();
     }
-    
-    public void setListModel(SelectedFileListModel model)
-    {
+
+    /**
+     * Drag and drop support
+     */
+    private void initDND() {
+        dndHandler = new DndHandler();
+        dndHandler.setConfigHolder(configHolder);
+
+        dndHandler.addDropTarget(this);
+        dndHandler.addDropTarget(this.emptyList);
+    }
+
+    public void setListModel(SelectedFileListModel model) {
         this.selectedFileLister = new SelectedFileLister(this.configHolder, model);
         this.selectedFileLister.addFileSelectionListeners(this);
     }
-    
-    private void updateComponents()
-    {
+
+    private void updateComponents() {
         this.layout = new StackLayout();
         this.selectedFileListMainPanel.setLayout(this.layout);
-        
+
         this.emptyList = new EmptyListMessage();
         this.selectedFileListMainPanel.add(this.emptyList);
-        
+
         this.selectedFileList = new JPanel();
         this.selectedFileList.setLayout(new CustomGridLayout(150, 125));
         this.selectedFileListMainPanel.add(this.selectedFileList);
         
         this.layout.showComponent(this.emptyList, this.selectedFileListMainPanel);
     }
-    
-    private void updateStrings()
-    {
-        Lang lang = (Lang)this.configHolder.getObject("global.lang");
+
+    private void updateStrings() {
+        Lang lang = (Lang) this.configHolder.getObject("global.lang");
         this.emptyList.setText(lang.get("selectedfilelist.emptymessage"), "");
     }
 
@@ -75,21 +80,20 @@ public class SelectedFileList extends javax.swing.JPanel implements java.awt.eve
      * 
      * @param e
      */
-    public void itemStateChanged(ItemEvent e) 
-    {
-        ListItemUI itemUI = (ListItemUI)e.getItem();
-        
-        if(e.getID() == SelectedFileLister.EVENT_ADD){
+    public void itemStateChanged(ItemEvent e) {
+        ListItemUI itemUI = (ListItemUI) e.getItem();
+
+        if (e.getID() == SelectedFileLister.EVENT_ADD) {
             this.selectedFileList.add(itemUI);
-        }else{
+        } else {
             this.selectedFileList.remove(itemUI);
         }
-        
+
         this.layout.showComponent(this.selectedFileList, this.selectedFileListMainPanel);
         this.selectedFileList.revalidate();
         this.selectedFileList.repaint();
     }
-     
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -118,12 +122,10 @@ public class SelectedFileList extends javax.swing.JPanel implements java.awt.eve
 
         add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel selectedFileListMainPanel;
     // End of variables declaration//GEN-END:variables
 
 
- }
+}

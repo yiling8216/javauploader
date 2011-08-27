@@ -3,7 +3,6 @@
  *
  * Created on 12 Haziran 2008 Perşembe, 21:12
  */
-
 package com.pegaa.uploader.ui.filelist;
 
 import com.pegaa.uploader.common.CustomGridLayout;
@@ -19,29 +18,26 @@ import javax.swing.JPanel;
  *
  * @author  tayfun
  */
-public class FileList extends javax.swing.JPanel implements FileListingListener{
-    
+public class FileList extends javax.swing.JPanel implements FileListingListener {
+
     private JPanel fileList = null;
     private EmptyListMessage emptyListMessage = null;
     private StackLayout layout = null;
     private ConfigHolder configHolder = null;
-    
     /* actual file lister object, find files and adds them to the UI
      * 
      */
     private FileLister fileLister = null;
-    
     /* Loads thumb images of original images if mode is image mode */
     //private ThumbLoaderThread thumbLoaderThread = null;
     private boolean canList = true;
-       
-    
+
     /** Creates new form ListContainer */
     public FileList() {
         initComponents();
         updateComponents();
     }
-    
+
     /**
      *      Sets the internal configHolder, we use this function to pass configHolder
      * because Netbeans IDE does not let you to use gui components in visual editor 
@@ -49,88 +45,80 @@ public class FileList extends javax.swing.JPanel implements FileListingListener{
      * 
      * @param configHolder
      */
-    public void setConfigHolder(ConfigHolder configHolder)
-    {
+    public void setConfigHolder(ConfigHolder configHolder) {
         this.configHolder = configHolder;
         this.fileLister = new FileLister(this.configHolder, this.fileList, this);
-        //this.thumbLoaderThread = new ThumbLoaderThread();
         initFileList();
     }
-    
-    private void initFileList()
-    {
+
+    private void initFileList() {
         updateComponents();
         updateStrings();
-        initListeners();        
+        initListeners();
     }
-    
-    private void initListeners()
-    {
+
+    private void initListeners() {
         this.fileLister.addFileListingListener(this);
     }
-    
-    private void updateComponents()
-    {
+
+    private void updateComponents() {
         this.layout = new StackLayout();
-        
+
         this.setLayout(this.layout);
-        
+
         this.fileList = new JPanel();
         fileList.setLayout(new CustomGridLayout(165, 145));
-        
+
         this.add(this.fileList);
-        
+
         this.emptyListMessage = new EmptyListMessage();
         this.add(this.emptyListMessage);
-        
+
         this.layout.showComponent(this.emptyListMessage, this);
-        
+
     }
-     
+
     /**
      *     Updates the strings provided by Lan object
      */
-    private void updateStrings()
-    {
+    private void updateStrings() {
         this.emptyListMessage.setText("", "");
     }
-    
+
     /**
      *  Selects all files from the active directory
      * 
      */
-    public void selectAll(){
+    public void selectAll() {
         this.fileLister.selectAll();
     }
-    
+
     /**
      *  Removes all selected files
      */
-    public void removeAllSelected(){
+    public void removeAllSelected() {
         this.fileLister.removeAllSelected();
     }
-    
+
     /**
      *      Request to list directory
      * 
      * @param dir
      */
-    public void listDirectory(File dir)
-    {    
-         this.fileList.removeAll();
-         this.fileLister.listDirectory(dir);
+    public void listDirectory(File dir) {
+        this.fileList.removeAll();
+        this.fileLister.listDirectory(dir);
     }
-    
+
     /**
      *      is currently available for list dir.
      * 
      * @return
      */
-    public boolean isCanList()
-    {
+    public boolean isCanList() {
         return this.canList;
     }
-    
+
     /**
      * Handler of directory listing finished event.
      * 
@@ -138,10 +126,9 @@ public class FileList extends javax.swing.JPanel implements FileListingListener{
      */
     public void listingFinished(int filecount) {
         this.canList = true;
-        if(filecount == 0)
-        {
+        if (filecount == 0) {
             this.layout.showComponent(this.emptyListMessage, this);
-        }else{
+        } else {
             this.layout.showComponent(fileList, this);
         }
         this.fileList.revalidate();
@@ -153,8 +140,8 @@ public class FileList extends javax.swing.JPanel implements FileListingListener{
      */
     public void listingStarted() {
         this.canList = false;
-    }   
-    
+    }
+
     /**
      *     Invoked when a file's itemUI added by the lister thread.
      * 
@@ -162,9 +149,8 @@ public class FileList extends javax.swing.JPanel implements FileListingListener{
      */
     public void listItemAdded(ListItemUI c) {
         this.fileList.add(c);
-    }  
-    
-    
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -184,9 +170,6 @@ public class FileList extends javax.swing.JPanel implements FileListingListener{
             //.addGap(0, 293, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    
 }

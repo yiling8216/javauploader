@@ -136,13 +136,6 @@ public class DefaultConfigHolder extends ConfigHolder {
             this.map.put("global.policy", iup);
             putImagePolicyRelatedParamsToConfig(applet);
         }
-        /*
-         //REMOVED FROM V2 - please use original image upload
-         else if (policy != null && policy.equals("image-with-exif")) {
-            ImageUploadWihExifDataPolicy iedp = new ImageUploadWihExifDataPolicy(this);
-            this.map.put("global.policy", iedp);
-            putImagePolicyRelatedParamsToConfig(applet);
-        } */ 
     }
 
     /**
