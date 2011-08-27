@@ -165,7 +165,7 @@ public class DefaultConfigHolder extends ConfigHolder {
         String logging = applet.getParameter("logging");
 
         if (logging != null) {
-            if (logging.equals("enable")) {
+            if (logging.equals("enabled")) {
                 CustomLog.setMode(1);
             }
         }
