@@ -62,8 +62,6 @@ public class FileSelectionContainer extends javax.swing.JPanel implements Action
 
     private void initFileListModel()
     {
-        //TEST
-        //configHolder.add("global.maxNumUploads", "10");
         selectedFileListmodel = new SelectedFileListModel();
         /* we store SelectedFileListModel object to the global map. */
         this.configHolder.add("global.selected-file-list-model", selectedFileListmodel);

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.pegaa.uploader.ui.selectedfilelist;
 
 import com.pegaa.uploader.config.ConfigHolder;
@@ -21,18 +20,16 @@ import java.util.ArrayList;
  *
  * @author tayfun
  */
-public class SelectedFileLister implements SelectedFileListListener, ItemSelectable, ItemSelectionListener{
+public class SelectedFileLister implements SelectedFileListListener, ItemSelectable, ItemSelectionListener {
 
     public static final int EVENT_ADD = 1;
     public static final int EVENT_REMOVE = 2;
-
     private ConfigHolder configHolder = null;
     private SelectedFileListModel selectedFileListModel = null;
     private ArrayList<ListItemUI> listItemUIs = null;
     private ArrayList<java.awt.event.ItemListener> fileSelectionListeners = null;
 
-    public SelectedFileLister(ConfigHolder configHolder, SelectedFileListModel selectedFileListModel)
-    {
+    public SelectedFileLister(ConfigHolder configHolder, SelectedFileListModel selectedFileListModel) {
         this.configHolder = configHolder;
         this.selectedFileListModel = selectedFileListModel;
         this.selectedFileListModel.addSelectedFileListListener(this);
@@ -40,8 +37,7 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
         fileSelectionListeners = new ArrayList<java.awt.event.ItemListener>(2);
     }
 
-    public void addFileSelectionListeners(ItemListener l)
-    {
+    public void addFileSelectionListeners(ItemListener l) {
         this.fileSelectionListeners.add(l);
     }
 
@@ -56,7 +52,6 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
         return true;
     }
 
-
     public void itemUnSelected(ListItem item) {
         this.selectedFileListModel.remove(item);
     }
@@ -68,7 +63,7 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
      * @param f
      */
     public void fileAdded(ListItem f) {
-        UploadPolicy policy = (UploadPolicy)this.configHolder.getObject("global.policy");
+        UploadPolicy policy = (UploadPolicy) this.configHolder.getObject("global.policy");
         ListItemUI itemUI = new ListItemUI();
         itemUI.setConfigHolder(this.configHolder);
         itemUI.setItem(f, policy.getPolicyType() == ImageUploadPolicy.POLICY_TYPE_IMG ? true : false);
@@ -83,10 +78,8 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
 
         int len = this.listItemUIs.size();
 
-        for(int i=0; i<len; i++)
-        {
-            if(this.listItemUIs.get(i).getItem() == f)
-            {
+        for (int i = 0; i < len; i++) {
+            if (this.listItemUIs.get(i).getItem() == f) {
                 this.notifyFileRemoved(this.listItemUIs.get(i));
                 this.listItemUIs.get(i).removeItemSelectionListeners();
                 this.listItemUIs.remove(i);
@@ -101,20 +94,16 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
      *
      * @param itemUI
      */
-    private void notifyFileAdded(ListItemUI itemUI)
-    {
+    private void notifyFileAdded(ListItemUI itemUI) {
         int len = this.fileSelectionListeners.size();
-        for(int i=0; i<len; i++)
-        {
+        for (int i = 0; i < len; i++) {
             this.fileSelectionListeners.get(i).itemStateChanged(new ItemEvent(this, EVENT_ADD, itemUI, 0));
         }
     }
 
-    private void notifyFileRemoved(ListItemUI itemUI)
-    {
+    private void notifyFileRemoved(ListItemUI itemUI) {
         int len = this.fileSelectionListeners.size();
-        for(int i=0; i<len; i++)
-        {
+        for (int i = 0; i < len; i++) {
             this.fileSelectionListeners.get(i).itemStateChanged(new ItemEvent(this, EVENT_REMOVE, itemUI, 0));
         }
     }
@@ -135,6 +124,4 @@ public class SelectedFileLister implements SelectedFileListListener, ItemSelecta
     public void itemUIMouseOverEvent(String s) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
-
-
 }
