@@ -3,7 +3,6 @@
  *
  * Created on 12 Haziran 2008 Perşembe, 21:12
  */
-
 package com.pegaa.uploader.ui.filelist.item;
 
 import com.pegaa.uploader.config.ConfigHolder;
@@ -24,7 +23,7 @@ import javax.swing.filechooser.FileSystemView;
  * @author  tayfun
  */
 public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
-    
+
     private ConfigHolder configHolder = null;
     private FileSystemView fsView;
     /* this items display image */
@@ -32,8 +31,8 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
     private ListItem item = null;
     private ArrayList<ItemSelectionListener> selectionListeners = null;
     private int listenerCount = 0;
-    
-         
+    private boolean showHideButtons = true;
+
     /** Creates new form ListElement */
     public ListItemUI() {
         initComponents();
@@ -41,27 +40,27 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
         fsView = FileSystemView.getFileSystemView();
         showHideButtons(false);
     }
-    
+
     /**
      * 
      * @param configHolder
      */
-    public void setConfigHolder(ConfigHolder configHolder)
-    {
+    public void setConfigHolder(ConfigHolder configHolder) {
         this.configHolder = configHolder;
-        this.updateUI();
+        updateButtonPanel();
     }
 
     /*
      * If rotation is disable we must hide the panel that holds
      * rotation buttons.
      */
-    public void updateButtonPanel()
-    {
+    public void updateButtonPanel() {
         super.updateUI();
-        UploadPolicy up = (UploadPolicy)this.configHolder.getObject("global.policy");
-        if(!up.isShowRotateButtons()) {
+        UploadPolicy up = (UploadPolicy) this.configHolder.getObject("global.policy");
+        if (!up.isShowRotateButtons()) {
             panelButtonHolder.setVisible(false);
+            showHideButtons(false);
+            showHideButtons = false;
         }
     }
 
@@ -70,133 +69,123 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
      * 
      * @param item
      */
-    public void setItem(ListItem item, boolean isImageMode)
-    {
+    public void setItem(ListItem item, boolean isImageMode) {
         this.item = item;
         this.item.addListItemListener(this);
-        if(isImageMode){
-            this.labelFileName.setText(((Lang)this.configHolder.getObject("global.lang")).get("listitemui.loading"));
+        if (isImageMode) {
+            this.labelFileName.setText(((Lang) this.configHolder.getObject("global.lang")).get("listitemui.loading"));
             this.showItemImage();
-        }else{
+        } else {
             this.labelFileName.setText(getShortFileName(item.getFile()));
             this.panelButtonHolder.setVisible(false);
             this.showFileIcon();
         }
         this.setToolTipText(item.getPath());
         this.fileNamePanel.setToolTipText(item.getPath());
-        //this.labelFileName.setText(getShortFileName(item.getFile()));
     }
-    
+
     /**
      *  Returns short display name of file
      * @param f
      * @return
      */
-    private String getShortFileName(File f)
-    {
+    private String getShortFileName(File f) {
         String str = f.getName();
         int len = str.length();
         int MAX = 20;
-        if(len > MAX){
-            return str.substring(0, MAX-2) + "..";
-        }else{
+        if (len > MAX) {
+            return str.substring(0, MAX - 2) + "..";
+        } else {
             return str;
         }
     }
-    
+
     /**
      * If mode is file mode show the icon of the extension if available
      */
-    private void showFileIcon()
-    {
-        if(this.image != null)return;
-        
+    private void showFileIcon() {
+        if (this.image != null) {
+            return;
+        }
+
         Icon icon = fsView.getSystemIcon(this.item.getFile());
-        BufferedImage img = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);       
+        BufferedImage img = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics g = img.createGraphics();
         icon.paintIcon(this, g, icon.getIconWidth(), icon.getIconHeight());
         this.image = img;
         this.repaint();
     }
-    
+
     /**
      *  Sets the selected flag and updates the checkbox
      * @param b
      */
-    public void setSelected(boolean b)
-    {
+    public void setSelected(boolean b) {
         this.jCheckBox1.setSelected(b);
         this.imagePanel1.setSelection(b);
         this.repaint();
     }
-    
+
     /**
      *  Returns selection status
      * @return
      */
-    public boolean isSelected()
-    {
+    public boolean isSelected() {
         return this.jCheckBox1.isSelected();
     }
-    
+
     /**
      *  returns ListItem object associated with this itemUI
      * @return
      */
-    public ListItem getItem()
-    {
+    public ListItem getItem() {
         return this.item;
     }
-    
+
     /**
      * in image mode loads the image and shows it
      */
-    private void showItemImage()
-    { 
+    private void showItemImage() {
         this.image = this.item.getThumbImage();
-        if(this.image != null){
+        if (this.image != null) {
             this.labelFileName.setText(getShortFileName(item.getFile()));
             this.imagePanel1.setImage(image);
             this.repaint();
         }
     }
-    
+
     /**
      *      Add FileSelectionListener
      * 
      * @param l
      */
-    public void addItemSelectionListener(ItemSelectionListener l)
-    {
+    public void addItemSelectionListener(ItemSelectionListener l) {
         this.selectionListeners.add(l);
         this.listenerCount++;
     }
-    
+
     /**
      *      clears the FileSelectionListener list.
      * 
      */
-    public void removeItemSelectionListeners()
-    {
+    public void removeItemSelectionListeners() {
         int len = this.listenerCount;
-        for(int i=0; i<len; i++){
+        for (int i = 0; i < len; i++) {
             this.selectionListeners.remove(i);
         }
     }
 
     /*
      * Notify checkbox status listeners
-    */
-    private void notifyItemSelectionListeners()
-    {
+     */
+    private void notifyItemSelectionListeners() {
         int len = this.listenerCount;
-        for(int i=0; i<len; i++){
-            if(this.jCheckBox1.isSelected()){
-                //
-                if(!this.selectionListeners.get(i).itemSelected(item)){
+        for (int i = 0; i < len; i++) {
+            if (this.jCheckBox1.isSelected()) {
+                if (!this.selectionListeners.get(i).itemSelected(item)) {
                     this.setSelected(false);
                 }
-            }else{
+            } else {
                 this.selectionListeners.get(i).itemUnSelected(item);
             }
         }
@@ -208,13 +197,12 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
     public void itemImageUpdated() {
         this.showItemImage();
     }
-        
-    private void showHideButtons(boolean b)
-    {
+
+    private void showHideButtons(boolean b) {
         this.rotateLeft.setVisible(b);
         this.rotateRight.setVisible(b);
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -313,13 +301,13 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rotateLeftMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rotateLeftMouseClicked
-        ImageItem imgItem = (ImageItem)this.item;
+        ImageItem imgItem = (ImageItem) this.item;
         imgItem.rotateLeft();
         this.revalidate();
     }//GEN-LAST:event_rotateLeftMouseClicked
 
     private void rotateRightMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rotateRightMouseClicked
-        ImageItem imgItem = (ImageItem)this.item;
+        ImageItem imgItem = (ImageItem) this.item;
         imgItem.rotateRight();
         this.revalidate();
     }//GEN-LAST:event_rotateRightMouseClicked
@@ -329,30 +317,34 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-       
     }//GEN-LAST:event_formMouseClicked
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        
     }//GEN-LAST:event_formMouseEntered
 
     private void imagePanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePanel1MouseEntered
-        showHideButtons(true);
+        if (showHideButtons) {
+            showHideButtons(true);
+        }
     }//GEN-LAST:event_imagePanel1MouseEntered
 
     private void imagePanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePanel1MouseExited
-        showHideButtons(false);
+        if (showHideButtons) {
+            showHideButtons(false);
+        }
     }//GEN-LAST:event_imagePanel1MouseExited
 
     private void rotateLeftMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rotateLeftMouseEntered
-         showHideButtons(true);
+        if (showHideButtons) {
+            showHideButtons(true);
+        }
     }//GEN-LAST:event_rotateLeftMouseEntered
 
     private void rotateRightMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rotateRightMouseEntered
-         showHideButtons(true);
+        if (showHideButtons) {
+            showHideButtons(true);
+        }
     }//GEN-LAST:event_rotateRightMouseEntered
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel fileNamePanel;
     private com.pegaa.uploader.ui.filelist.item.ImagePanel imagePanel1;
@@ -364,5 +356,4 @@ public class ListItemUI extends javax.swing.JPanel implements ListItemListener {
     private javax.swing.JButton rotateLeft;
     private javax.swing.JButton rotateRight;
     // End of variables declaration//GEN-END:variables
-    
 }
