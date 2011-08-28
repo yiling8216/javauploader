@@ -34,7 +34,7 @@
 - file-extensions => the extensions of files seperated with "," char
 - max-width => maximum width of image if we want images to have a max size
 - max-height => maximum height of image if we want images to have a max size
-- logging => log setting (enable enables log otherwise it is disabled)
+- logging => log setting ("enabled" flag enables log otherwise it is disabled)
 - upload-handler-url => the url of the upload handler
 - file-upload-limit => max file limit if we want to have a limit for files
 - lang => lang id of the language
