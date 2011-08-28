@@ -2,7 +2,7 @@ bottomtoolbar.help=Help
 bottomtoolbar.upload=Upload
 bottomtoolbar.choose=--- Select One ---
 
-selectedfilelist.emptymessage=There is no selected item
+selectedfilelist.emptymessage=There is no selected item (You can drag drop files here !)
 
 
 fileselection.tab1=Choose file
